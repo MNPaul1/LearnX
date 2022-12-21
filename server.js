@@ -6,12 +6,13 @@ const morgan = require("morgan")
 const connectDB = require("./config/db")
 const colors = require('colors');
 
-//route files
-const bootcamps = require("./routes/bootcamps")
+
 
 //load env vars
 dotenv.config({ path: "./config/config.env" });
 
+//route files
+const bootcamps = require("./routes/bootcamps")
 //connect to database
 connectDB()
 
