@@ -7,7 +7,7 @@ const errorHandler = (err,req,res,next) =>{
 
     //mongo bad objectID
     if (err.name==="CastError"){
-        const message = `Bootcamp not find with id of ${err.value}`
+        const message = `Resource not find with id of ${err.value}`
         error = new ErrorResponse(message,404)
     }
 
