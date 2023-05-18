@@ -6,15 +6,17 @@ const User = require('../models/User')
 //Protect routes
 exports.protect = asyncHandler(async (req,res,next)=>{
     let token;
+    //set token from the bearer token
     if (req.headers.authorization  && req.headers.authorization.startsWith('Bearer')){
         token = req.headers.authorization.split(" ")[1]
     } 
+    //set token from the cookie
     // else if(req.cookies.token){
     //     token = req.cookies.token
     // }
 
     if (!token){
-        return next(new errorResponse('Not authorize to access this route',401))
+        return next(new errorResponse('Not authorized to access this route',401))
     }
     //verify token
     try{
@@ -23,7 +25,7 @@ exports.protect = asyncHandler(async (req,res,next)=>{
         req.user = await User.findById(decoded.id)
         next();
     }catch(err){
-        return next(new errorResponse('Not authorize to access this route',401))
+        return next(new errorResponse('Not authorized to access this route',401))
 
     }
 })
