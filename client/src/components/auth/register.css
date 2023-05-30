@@ -1,0 +1,44 @@
+.outer-container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  margin: 50px 0 50px 0;
+  height: max-content;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.container {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 24px 24px 15px;
+  background-color: #0b0b12;
+  border-radius: 20px;
+  border: 1px solid #b5b3b3ae;
+  box-sizing: border-box;
+}
+#filled-basic, #filled-basic-label {
+  color: #e7dfdd;
+}
+#heading {
+  text-align: center;
+  text-transform: uppercase;
+}
+.container * {
+  margin: 2%;
+  width: 100%;
+  border-radius: 10%;
+  min-width: 300px;
+}
+
+#login-link {
+  text-align: center;
+}
+#btn{
+    background-color: #4717f6;
+}
+a{
+    text-decoration: none;
+    color: #4717f6;
+}
