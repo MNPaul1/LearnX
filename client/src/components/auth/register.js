@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import "./register.css";
 import { TextField, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import {connect} from 'react-redux';
+import { setAlert } from "../../actions/alert";
+import PropTypes from 'prop-types'
 
-export default function Register() {
+const Register = ({setAlert})=> {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,13 +18,12 @@ export default function Register() {
 
   const onChange = (e) =>{
     setFormData({...formData, [e.target.name]:e.target.value })
-    console.log(formData)
   }
 
   const onSubmit =async (e) =>{
     e.preventDefault();
     if (password!==password2){
-      alert("hi")
+      setAlert("Passwords do not match.", 'error', 4000)
     }
   }
 
@@ -79,3 +81,10 @@ export default function Register() {
     </div>
   );
 }
+
+
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired
+}
+
+export default connect(null, {setAlert})(Register);
