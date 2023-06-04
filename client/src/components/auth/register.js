@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./register.css";
 import { TextField, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import {connect} from 'react-redux';
 import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
 import PropTypes from 'prop-types'
 
-const Register = ({setAlert})=> {
+const Register = ({setAlert, register, isAuthenticated})=> {
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,6 +16,7 @@ const Register = ({setAlert})=> {
     password2:"",
     role: "",
   });
+
   const { name, email, password, password2, role } = formData;
 
   const onChange = (e) =>{
@@ -25,6 +28,13 @@ const Register = ({setAlert})=> {
     if (password!==password2){
       setAlert("Passwords do not match.", 'error', 4000)
     }
+    else{
+      register({name, email, password, role})
+    }
+  }
+
+  if(isAuthenticated){
+    return <Navigate to='/dashboard' />
   }
 
   return (
@@ -40,7 +50,6 @@ const Register = ({setAlert})=> {
           variant="filled"
           value={name}
           onChange={onChange}
-          required
         />
         <TextField
           type="email"
@@ -50,7 +59,6 @@ const Register = ({setAlert})=> {
           variant="filled"
           value={email}
           onChange={onChange}
-          required
         />
         <TextField
           type="password"
@@ -60,7 +68,6 @@ const Register = ({setAlert})=> {
           variant="filled"
           value={password}
           onChange={onChange}
-          required
         />
         <TextField
           type="password"
@@ -70,9 +77,8 @@ const Register = ({setAlert})=> {
           variant="filled"
           value={password2}
           onChange={onChange}
-          required
         />
-        <TextField id="filled-basic" onChange={onChange} value={role} name="role" label="Role" variant="filled" required />
+        <TextField id="filled-basic" onChange={onChange} value={role} name="role" label="Role" variant="filled" />
         <br />
         <Button id="btn" type="submit" variant="contained">Sign Up</Button>
         <br />
@@ -84,7 +90,11 @@ const Register = ({setAlert})=> {
 
 
 Register.propTypes = {
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 }
-
-export default connect(null, {setAlert})(Register);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, {setAlert, register})(Register);

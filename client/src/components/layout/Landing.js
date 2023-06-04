@@ -10,7 +10,7 @@ export default function Landing() {
   const bootcampsBenefits = [{'Rapid Skill Acquisition':'Bootcamps are designed to provide accelerated learning experiences, allowing participants to quickly gain practical skills in a relatively short period.'},{ 'Industry-Relevant Training':'Bootcamps are typically tailored to meet the needs of specific industries, ensuring that participants gain knowledge that is applicable to the job market.'}, {'Career Transition Opportunities':'Bootcamps offer an accessible pathway for individuals looking to switch careers or enter new industries.'},{ 'Networking and Mentorship':'Bootcamps provide an environment for participants to build valuable connections within the industry.'},{'Job Placement Support':'A significant advantage of bootcamps is the emphasis on job placement and career support.'},{'Cost and Time Efficiency':'Compared to traditional degree programs, bootcamps are relatively shorter in duration and more cost-effective.'}]
   return (
     <Fragment>
-      <div className="center-element box">
+      <div className="center-element box" style={{backgroundImage: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSL9bL6ziwsrmuaWMiiImmpRPffFZyVUls-g&usqp=CAU")'}}>
         <h1 className="main-heading">
           Unlock Your <nav id="custom-text-decoration" style={{backgroundColor:'red'}}>Learning Potential</nav>: Redefine Your Skills and Fuel Success
           with <nav id="custom-text-decoration" style={{backgroundColor:'yellow'}}>Dynamic Bootcamps!</nav>

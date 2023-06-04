@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Alert as AlertMui, AlertTitle } from "@mui/material";
+import { Alert as AlertMui } from "@mui/material";
 const Alert = ({ alerts }) =>
   alerts !== null &&
   alerts.length > 0 &&
@@ -9,10 +9,9 @@ const Alert = ({ alerts }) =>
     <AlertMui variant="filled"
       key={alert.id}
       severity={alert.alertType}
-      sx={{ width: "50%", margin: "auto", padding: "auto" }}
+      sx={{ width: "40%", margin: "auto", padding: "auto", mb:'5px', fontSize:'small' }}
     >
-      <AlertTitle>{alert.alertType.toUpperCase()}</AlertTitle>
-      {alert.msg} <strong>check it out!</strong>
+      {alert.msg}
     </AlertMui>
   ));
 
