@@ -8,6 +8,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  GET_ALL_BOOTCAMPS
 } from "../actions/types";
 import setAuthToken from "../utils/setAuthToken";
 //Load  User
@@ -93,3 +94,5 @@ export const logout = () => dispatch => {
     type: LOGOUT
   });
 };
+
+
