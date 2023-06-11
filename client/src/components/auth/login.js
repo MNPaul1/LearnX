@@ -24,7 +24,7 @@ const Login = ({ login, isAuthenticated }) => {
 
   //Redirect if Logged In
   if (isAuthenticated) {
-    return <Navigate to='/dashboard' />
+    return <Navigate to='/bootcamps' />
   }
 
   return (

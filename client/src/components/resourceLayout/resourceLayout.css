@@ -1,0 +1,64 @@
+.section{
+    width: calc(100vw-2);
+    padding: 2%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 25px;
+    font-family: 'Titillium Web', sans-serif;
+
+}
+
+.resource-container{
+    cursor: pointer;
+    position: relative;
+    width: 50%;
+    padding: 15px;
+    height: 270px;
+    box-shadow: 2px 2px 8px rgb(115, 114, 114);
+    background-color: rgb(237, 237, 237);
+    column-gap: 20px;
+    display: flex;
+    flex-direction: row;
+}
+.click{
+    height: 100%;
+    z-index: 1;
+    width: 100%;
+    position: absolute;
+}
+
+.resource-info{
+    height: 98%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.careers{
+    color: #0000007d;
+}
+@media screen and (max-width: 550px) {
+    .resource-info{
+        font-size: medium;
+    }
+    .section{
+        font-size: small;
+        white-space:normal;
+    }
+    .resource-container{
+        width: 90%;
+        height: 200px;
+    }
+    .description {
+        display: none;
+    }
+}
+@media screen and (min-width: 430px) and (max-width: 920px){
+    .resource-container{
+        width: 80%;
+    }
+}

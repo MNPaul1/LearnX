@@ -15,10 +15,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../actions/auth";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
-const pages = ["All Bootcamps", "All Courses"];
+import { useNavigate } from "react-router-dom";
 
 function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -60,6 +60,7 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
               color: "inherit",
               textDecoration: "none",
             }}
+            onClick={() => navigate('/')}
           >
             LearnX
           </Typography>
@@ -93,11 +94,12 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center" onClick={() => navigate('/bootcamps')}>ALL BOOTCAMPS</Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">ALL COURSES</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Avatar
@@ -120,19 +122,24 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
               color: "inherit",
               textDecoration: "none",
             }}
+            onClick={() => navigate('/')}
           >
             LearnX
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+            <div onClick={() => navigate('/bootcamps')}>ALL BOOTCAMPS</div>
+
+            </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              ALL COURSES
+            </Button>
           </Box>
           {!isAuthenticated && (
             <Box sx={{ flexGrow: 0 }}>
@@ -164,22 +171,26 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={handleCloseUserMenu} sx={{flexDirection: 'column', rowGap: 2, alignItems: 'flex-start', color:'black'}}>
+                <MenuItem
+                  onClick={handleCloseUserMenu}
+                  sx={{
+                    flexDirection: "column",
+                    rowGap: 2,
+                    alignItems: "flex-start",
+                    color: "black",
+                  }}
+                >
                   <Typography
-                    // onClick={}
+                  // onClick={}
                   >
                     Profile
                   </Typography>
                   <Typography
-                    // onClick={}
+                  // onClick={}
                   >
                     Account
                   </Typography>
-                  <Typography
-                    onClick={logout}
-                  >
-                    Logout
-                  </Typography>
+                  <Typography onClick={logout}>Logout</Typography>
                 </MenuItem>
               </Menu>
             </Box>

@@ -8,7 +8,6 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  GET_ALL_BOOTCAMPS
 } from "../actions/types";
 import setAuthToken from "../utils/setAuthToken";
 //Load  User
@@ -48,7 +47,6 @@ export const register =
       });
       dispatch(loadUser());
     } catch (error) {
-      console.error(error.response.data);
       let errors = error.response.data.error;
       if (errors) {
         errors = errors.split(",");

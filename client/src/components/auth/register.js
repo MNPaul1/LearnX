@@ -34,7 +34,7 @@ const Register = ({setAlert, register, isAuthenticated})=> {
   }
 
   if(isAuthenticated){
-    return <Navigate to='/dashboard' />
+    return <Navigate to='/get_all_bootcamps' />
   }
 
   return (
