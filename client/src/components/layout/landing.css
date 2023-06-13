@@ -20,8 +20,9 @@
 
 .loading{
     position: absolute;
-    top: 0;
-    width: 100vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #custom-text-decoration{
@@ -55,27 +56,42 @@
 }
 
 .bootcamps-container{
-    height: fit-content;
     justify-content: space-around;
     row-gap: 10px;
     column-gap: 10px;
     padding: 25px;
     box-sizing: border-box;
     cursor: pointer;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
-.bootcamps-container div{
+.bootcamps-container .bootcamp{
+    position: relative;
     flex-grow: 1;
-    max-width: 308px;
-    min-width: 308px;
+    max-width: 33.3%;
+    height: fit-content;
     border-radius: 5px;
     background-color: #eeeded;
 }
+
+.card-content{
+    padding: 16px 10px 16px 10px;
+    width:100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    height: 20%;
+}
+
+
 .cost-rating-conatiner{
     height: fit-content;
     font-size: large;
     justify-content: space-between;
 }
-
 .benefits-container{
     width: 95vw;
     color: var(--background-color);
@@ -106,7 +122,7 @@
 #footer{
     min-height: 30vh;
     max-height: fit-content;
-    width: 100%;
+    width: 100vw;
     background-color: black;
     color: var(--background-color);
     flex-direction: column;
@@ -126,7 +142,7 @@
     background-color: rgb(43, 43, 43);
     color: var(--background-color);
     padding: 10px;
-    width: 100%;
+    width: 100vw;
     box-sizing: border-box;
     text-align: center;
 }
@@ -155,6 +171,10 @@
         width:fit-content;
 
     }
+    .bootcamps-container .bootcamp{
+        max-width: 100%;
+        /* min-width: 100%; */
+    }
     .benefits-container{
         padding: 10px;
         column-gap: 2px;
@@ -170,9 +190,7 @@
     .about{
         width: 70%;
     }
-    .bootcamps-container{
-        justify-content: center;
-    }
+
 }
 @media screen and (min-width: 430px) and (max-width: 920px){
     .box{
@@ -185,7 +203,5 @@
     .about{
         width: 60%;
     }
-    .bootcamps-container{
-        justify-content: center;
-    }
+
 }

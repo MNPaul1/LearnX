@@ -1,15 +1,12 @@
 import React, { Fragment, useEffect } from "react";
 import "./landing.css";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import { connect } from "react-redux";
 import { getBootcamps } from "../../actions/bootcamp";
 import PropTypes from "prop-types";
 import { Rating } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
   useEffect(() => {
@@ -42,12 +39,16 @@ const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
         "Compared to traditional degree programs, bootcamps are relatively shorter in duration and more cost-effective.",
     },
   ];
-  const handleClick = (e) =>{
-    const {id} = e.target;
-    return navigate(`/bootcamp/${id}`)
-  }
-  return (
-    (loading ? <div className="loading"><CircularProgress /></div> : <Fragment>
+  const handleClick = (e) => {
+    const { id } = e.target;
+    return navigate(`/bootcamp/${id}`);
+  };
+  return loading ? (
+    <div className="loading">
+      <CircularProgress />
+    </div>
+  ) : (
+    <Fragment>
       <div className="center-element box header">
         <h1 className="main-heading">
           Unlock Your{" "}
@@ -75,23 +76,32 @@ const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
       <h1 className="label">Explore Top Bootcamps</h1>
       <div className="bootcamps-container box center-element">
         {bootcamps.data?.map((bootcamp) => (
-          <Card id={bootcamp.id} onClick={handleClick} key={bootcamp.id}>
-          <Fragment className="click" id={bootcamp.id}></Fragment>
+          <div
+            className="bootcamp"
+            id={bootcamp.id}
+            onClick={handleClick}
+            key={bootcamp.id}
+          >
+            <div className="click" id={bootcamp.id} />
             <CardMedia
-              sx={{ height: 250, backgroundSize:'cover' }}
+              sx={{ height: "300px", width: "100%" }}
               image={`/uploads/${bootcamp.photo}`}
               title={bootcamp.name}
             />
-            <CardContent >
-              <Typography gutterBottom variant="h5" component="div">
-                {bootcamp.name}
-              </Typography>
-              <div className="cost-rating-conatiner center-element">
+            <div className="card-content">
+              <h2>{bootcamp.name}</h2>
+              <nav className="cost-rating-conatiner center-element">
                 <span>CA${bootcamp.averageCost}</span>
-                  <Rating name="half-rating-read" defaultValue={(bootcamp.averageRating*5)/10} precision={0.5} size="small" readOnly />
-              </div>
-            </CardContent>
-          </Card>
+                <Rating
+                  name="half-rating-read"
+                  defaultValue={(bootcamp.averageRating * 5) / 10}
+                  precision={0.5}
+                  size="small"
+                  readOnly
+                />
+              </nav>
+            </div>
+          </div>
         ))}
       </div>
       <br />
@@ -108,29 +118,8 @@ const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
           </div>
         ))}
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
 
-      <footer id="footer" className="center-element">
-        <h1>LearnX</h1>
-        <p className="about">
-          LearnX is a Bootcamp application where you find numerous bootcamps
-          with different courses. Each bootcamp is beautifully described with
-          all the major skills. Moreover, it streamlines access to course
-          content
-        </p>
-        <nav>
-          &copy; All Rights Reserved |{" "}
-          <nav style={{ color: "skyblue", display: "inline-block" }}>
-            Paul Industries
-          </nav>
-        </nav>
-      </footer>
-      <p className="credit">Design By - Mahan</p>
-    </Fragment>)
+    </Fragment>
   );
 };
 

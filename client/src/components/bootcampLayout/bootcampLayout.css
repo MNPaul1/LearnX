@@ -1,0 +1,125 @@
+.bootcamp-section {
+  width: 75%;
+  margin: 30px auto;
+  padding: auto;
+  box-sizing: border-box;
+}
+
+.bootcamp-section-header {
+  padding: 30px;
+  border-radius: 15px;
+  background-color: var(--color);
+  color: var(--background-color);
+  display: flex;
+  flex-direction: row-reverse;
+  row-gap: 1ch;
+  column-gap: 1ch;
+}
+.bootcamp-title {
+  text-transform: uppercase;
+}
+.bootcamp-info {
+  flex-grow: 1;
+  row-gap: 1ch;
+}
+.photo {
+  height: auto;
+  max-height: 300px;
+  width: auto;
+  max-width: 300px;
+  border-radius: 7px;
+}
+.courses-section {
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: fit-content;
+  column-gap: 10px;
+  row-gap: 10px;
+}
+.course-container {
+  display: flex;
+  min-height: 300px;
+  flex-direction: column;
+  background-color: var(--container-bg-color);
+  border-radius: 15px;
+  flex: 1;
+  padding: 15px;
+  max-width: 33.3%;
+  row-gap: 10px;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 2px rgba(134, 132, 132, 0.342);
+}
+.course-container * {
+  flex-grow: 1;
+}
+.course-container h1{
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+.skill-bar{
+    position: relative;
+    width: 100%;
+    min-height: 20px;
+    max-height: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: var(--background-color);
+}
+.required-skill-bar{
+    position: absolute;
+    height: inherit;
+    font-size: small;
+    font-weight: bolder;
+    text-align: center;
+    background-image: linear-gradient(0.25turn, #1b6585, #ebf8e1, #dd8a32);
+    border-radius: inherit;
+}
+.bootcamp-opportunity-container{
+  flex-direction: row;
+  row-gap: 10px;
+  font-size: larger;
+  column-gap: 10px;
+  box-sizing: border-box;
+}
+.bootcamp-opportunity-container *{
+  width: fit-content;
+  min-width: 0px;
+}
+.left-container, .right-container{
+  flex: 1 1 50%;
+  height: inherit;
+  text-align: center;
+  font-weight: bold;
+  flex-direction: column;
+}
+
+.left-container nav{
+  padding-bottom: 1px;
+  border-radius: 0;
+  border-bottom: 2px solid var(--background-color);
+  border-bottom-width: 2px;
+  width: fit-content;
+}
+
+@media screen and (max-width: 550px) {
+  .bootcamp-section-header {
+    flex-direction: column;
+  }
+  .course-container {
+    max-width: 100%;
+  }
+  #course-description{
+    display: block;
+  }
+  .bootcamp-opportunity-container{
+    flex-direction: column;
+  }
+}
+@media screen and (min-width: 430px) and (max-width: 920px) {
+  .resource-container {
+    width: 80%;
+  }
+  .course-container {
+    max-width: 50%;
+  }
+}

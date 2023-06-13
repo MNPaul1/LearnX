@@ -152,7 +152,7 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <AccountCircleIcon fontSize="large" color="primary" />
+                  <AccountCircleIcon fontSize="large" color="info" />
                 </IconButton>
               </Tooltip>
               <Menu
