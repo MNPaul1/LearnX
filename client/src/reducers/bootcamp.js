@@ -1,4 +1,10 @@
-import { GET_BOOTCAMP, BOOTCAMP_ERROR, GET_BOOTCAMPS, CLEAR_BOOTCAMP } from "../actions/types";
+import {
+  GET_BOOTCAMP,
+  BOOTCAMP_ERROR,
+  GET_BOOTCAMPS,
+  CLEAR_BOOTCAMP,
+  BOOTCAMP_CREATED,
+} from "../actions/types";
 const initialState = {
   bootcamp: null,
   bootcamps: [],
@@ -10,6 +16,7 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_BOOTCAMP:
+    case BOOTCAMP_CREATED:
       return {
         ...state,
         bootcamp: payload,

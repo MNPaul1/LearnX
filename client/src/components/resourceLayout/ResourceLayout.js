@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import {CircularProgress} from "@mui/material";
 const ResourceLayout = ({
   getBootcamps,
-  auth,
+  auth:{user},
   bootcamp: { bootcamps, loading },
 }) => {
   useEffect(() => {
@@ -20,24 +20,27 @@ const ResourceLayout = ({
     const { id } = e.target;
     return navigate(`/bootcamp/${id}`);
   };
+  const {role,_id} = user.data
   return loading ? (
     <div className="loading">
       <CircularProgress />
     </div>
   ) : (
     <div className="section">
-      {bootcamps.data?.map((bootcamp) => (
-        <div
+      {bootcamps.data?.map((bootcamp) =>{
+        if(bootcamp.courses.length===0 && role!=='admin'){
+          return null
+        }
+        else{return <div
           key={bootcamp.id}
           id={bootcamp.id}
           className="resource-container"
           onClick={handleClick}
         >
           <div className="click" id={bootcamp.id}></div>
-          <CardMedia
-            component="img"
-            sx={{ height: "100%", width: "50%", borderRadius: "15px" }}
-            image={`/uploads/${bootcamp.photo}`}
+          <img
+            style={{ height: "100%", width: "50%", borderRadius: "15px" }}
+            src={`/uploads/${bootcamp.photo}`}
             alt={bootcamp.name}
           />
 
@@ -53,8 +56,8 @@ const ResourceLayout = ({
             <Rating name="half-rating-read" defaultValue={(bootcamp.averageRating*5)/10} precision={0.5} size="small" readOnly />
             <h3 className="resource-cost">CA${bootcamp.averageCost}</h3>
           </div>
-        </div>
-      ))}
+        </div>}}
+      )}
     </div>
   );
 };

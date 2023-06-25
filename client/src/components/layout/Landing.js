@@ -75,8 +75,8 @@ const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
       <br />
       <h1 className="label">Explore Top Bootcamps</h1>
       <div className="bootcamps-container box center-element">
-        {bootcamps.data?.map((bootcamp) => (
-          <div
+        {bootcamps.data?.map((bootcamp, key) => (
+          key<4 && <div
             className="bootcamp"
             id={bootcamp.id}
             onClick={handleClick}

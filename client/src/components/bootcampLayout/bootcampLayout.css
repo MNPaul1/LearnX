@@ -101,7 +101,7 @@
   width: fit-content;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 600px) {
   .bootcamp-section-header {
     flex-direction: column;
   }
@@ -115,7 +115,7 @@
     flex-direction: column;
   }
 }
-@media screen and (min-width: 430px) and (max-width: 920px) {
+@media screen and (min-width: 600px) and (max-width: 920px) {
   .resource-container {
     width: 80%;
   }

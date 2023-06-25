@@ -100,6 +100,9 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">ALL COURSES</Typography>
               </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center"  onClick={() => navigate('/add-bootcamp')}>ADD BOOTCAMP</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Avatar
@@ -139,6 +142,13 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
               sx={{ my: 2, color: "white", display: "block" }}
             >
               ALL COURSES
+            </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+            <div onClick={() => navigate('/add-bootcamp')}>ADD BOOTCAMP</div>
+
             </Button>
           </Box>
           {!isAuthenticated && (
