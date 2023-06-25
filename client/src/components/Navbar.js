@@ -98,7 +98,7 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
                 <Typography textAlign="center" onClick={() => navigate('/bootcamps')}>ALL BOOTCAMPS</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">ALL COURSES</Typography>
+                <Typography textAlign="center" onClick={() => navigate('/courses')}>ALL COURSES</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography textAlign="center"  onClick={() => navigate('/add-bootcamp')}>ADD BOOTCAMP</Typography>
@@ -141,7 +141,7 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              ALL COURSES
+              <div onClick={() => navigate('/courses')}>ALL COURSES</div>
             </Button>
             <Button
               onClick={handleCloseNavMenu}

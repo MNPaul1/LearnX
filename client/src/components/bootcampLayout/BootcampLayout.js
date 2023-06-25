@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getBootcampById } from "../../actions/bootcamp";
@@ -11,14 +11,15 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { getCoursesByBootcamp } from "../../actions/course";
-
+import { useNavigate } from "react-router-dom";
 const BootcampLayout = ({
   getBootcampById,
   auth,
   getCoursesByBootcamp,
-  courses_by_bootcamp: { courses },
+  course: { courses },
   bootcamp: { bootcamp, loading },
 }) => {
+  const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     getBootcampById(id);
@@ -117,7 +118,9 @@ const BootcampLayout = ({
         <br />
         <div className="courses-section center-element">
           {courses.data?.map((course) => (
-            <div key={course._id} className="course-container">
+            <div key={course._id} className="course-container"        onClick={() =>
+          navigate(`/course/${course._id}`)
+        }>
               <h1>{course.title}</h1>
               <p className="description" id="course-description">
                 {course.description}
@@ -175,12 +178,13 @@ BootcampLayout.propTypes = {
   getCoursesByBootcamp: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   bootcamp: PropTypes.object.isRequired,
+  course: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   bootcamp: state.bootcamp,
-  courses_by_bootcamp: state.courses_by_bootcamp,
+  course: state.course,
 });
 
 export default connect(mapStateToProps, {

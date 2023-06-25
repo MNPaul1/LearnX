@@ -41,6 +41,7 @@
   min-height: 300px;
   flex-direction: column;
   background-color: var(--container-bg-color);
+  cursor: pointer;
   border-radius: 15px;
   flex: 1;
   padding: 15px;

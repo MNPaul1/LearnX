@@ -46,6 +46,16 @@
 .careers{
     color: #0000007d;
 }
+.bootcamp-name{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px #0000007d;
+}
 @media screen and (max-width: 550px) {
     .resource-info{
         font-size: medium;

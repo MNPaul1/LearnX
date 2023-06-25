@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getBootcamps } from "../../actions/bootcamp";
-import CardMedia from "@mui/material/CardMedia";
 import "./resourceLayout.css";
 import { Rating } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +19,7 @@ const ResourceLayout = ({
     const { id } = e.target;
     return navigate(`/bootcamp/${id}`);
   };
-  const {role,_id} = user.data
+  const {role} = user.data
   return loading ? (
     <div className="loading">
       <CircularProgress />
@@ -52,7 +51,7 @@ const ResourceLayout = ({
                 <span key={key}> {career} | </span>
               ))}
             </span>
-            <p className="description">{bootcamp.description}</p>
+            <p className="description">{bootcamp.description.slice(0,120)}{+bootcamp.description.length>120?'...':'.'}</p>
             <Rating name="half-rating-read" defaultValue={(bootcamp.averageRating*5)/10} precision={0.5} size="small" readOnly />
             <h3 className="resource-cost">CA${bootcamp.averageCost}</h3>
           </div>
