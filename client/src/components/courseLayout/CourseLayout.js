@@ -1,16 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCourseById } from "../../actions/course";
 import { useParams } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-function CourseLayout({ getCourseById, auth, course: { current_course } }) {
+import { getUserById } from "../../actions/user";
+
+function CourseLayout({ getCourseById, auth, course: { current_course }, getUserById, user:{user} }) {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [users, setUsers] = useState([])
   useEffect(() => {
     getCourseById(id);
-  }, [getCourseById, id]);
+    getUserById();
+  }, [getCourseById, id, getUserById]);
+
+  useEffect(() =>(
+    setUsers(user.data)
+  ),[user])
+
+  const getUsername = (id) => {
+    if (users){
+      const value = users?.filter((user) => user._id===id); 
+      return value[0]?.name
+    }
+  }
 
   return current_course === null ? (
     <div className="loading">
@@ -28,7 +43,7 @@ function CourseLayout({ getCourseById, auth, course: { current_course } }) {
             ? "Available"
             : "Not Available"}
         </h4>
-        <h4>Instructor: {current_course.data.user}</h4>
+        <h4>Instructor: {getUsername(current_course.data.user)}</h4>
         <h4>
           Last updated {new Date().getMonth(current_course.data.createdAt)}/
           {new Date().getFullYear(current_course.data.createdAt)}
@@ -61,11 +76,14 @@ CourseLayout.propTypes = {
   auth: PropTypes.object.isRequired,
   course: PropTypes.object.isRequired,
   getCourseById: PropTypes.func.isRequired,
+  getUserById: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   course: state.course,
+  user: state.user
 });
 
-export default connect(mapStateToProps, { getCourseById })(CourseLayout);
+export default connect(mapStateToProps, { getCourseById, getUserById })(CourseLayout);

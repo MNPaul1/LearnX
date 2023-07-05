@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getBootcampById } from "../../actions/bootcamp";
@@ -12,25 +12,46 @@ import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { getCoursesByBootcamp } from "../../actions/course";
 import { useNavigate } from "react-router-dom";
+import { getReviews } from "../../actions/review";
+import { getUserById } from "../../actions/user";
+
 const BootcampLayout = ({
   getBootcampById,
+  getReviews,
   auth,
   getCoursesByBootcamp,
+  getUserById,
+  user: { user },
   course: { courses },
   bootcamp: { bootcamp, loading },
+  review: { reviews },
 }) => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [allUsers, setUsers] = useState([])
+
   useEffect(() => {
+    getUserById();
     getBootcampById(id);
     getCoursesByBootcamp(id);
-  }, [getBootcampById, id, getCoursesByBootcamp]);
+    getReviews(id);
+  }, [getBootcampById, id, getCoursesByBootcamp, getReviews, getUserById]);
+
+  useEffect (()=> {
+    setUsers(user.data);
+  }, [user])
+  const getUsername = (id) =>{
+    if (allUsers){
+      const value = allUsers?.filter(user => user._id===id);
+      return value[0]?.name
+    }
+  } 
   const skillLevels = { beginner: "20", intermediate: "50", advanced: "70" };
   const RenderComponent = (Component, value, ...rest) => {
     return bootcamp == null ? (
       <CircularProgress />
-    ) : (
-      <Box sx={{ display: "flex", flexDirection: "row" }}>
+      ) : (
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
         <Component size="small" sx={{ mr: 1 }} />
         <Box
           sx={{
@@ -44,8 +65,8 @@ const BootcampLayout = ({
       </Box>
     );
   };
-
-  return bootcamp == null ? (
+  
+  return bootcamp === null ? (
     <div className="loading">
       <CircularProgress />
     </div>
@@ -77,7 +98,7 @@ const BootcampLayout = ({
               readOnly
             />
           </Box>
-          <nav>Created By: {bootcamp.data.user}</nav>
+          <nav>Created By: {getUsername(bootcamp.data.user)}</nav>
           <nav>
             Last updated {new Date().getMonth(bootcamp.data.createdAt)}/
             {new Date().getFullYear(bootcamp.data.createdAt)}
@@ -118,9 +139,11 @@ const BootcampLayout = ({
         <br />
         <div className="courses-section center-element">
           {courses.data?.map((course) => (
-            <div key={course._id} className="course-container"        onClick={() =>
-          navigate(`/course/${course._id}`)
-        }>
+            <div
+              key={course._id}
+              className="course-container"
+              onClick={() => navigate(`/course/${course._id}`)}
+            >
               <h1>{course.title}</h1>
               <p className="description" id="course-description">
                 {course.description}
@@ -169,6 +192,38 @@ const BootcampLayout = ({
       <h1 style={{ textAlign: "center", fontWeight: "bold" }}>
         Average Cost: CA${bootcamp.data.averageCost}
       </h1>
+      <br />
+      <h1>Feedback</h1>
+      <div className="review-container">
+        {reviews.data?.map((review) => (
+          <div key={review._id} className="review">
+            <h2>{review.title}</h2>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Box sx={{ mr: 1, fontWeight: "bolder" }}>
+                {(review.rating * 5) / 10}
+              </Box>
+              <Rating
+                name="half-rating-read"
+                defaultValue={(review.rating * 5) / 10}
+                precision={0.5}
+                size="medium"
+                readOnly
+              />
+            </Box>
+            <p>{review.text}</p>
+            <h3>{getUsername(review.user)}</h3>
+            <nav>
+              {new Date().getMonth(bootcamp.data.createdAt)}/
+              {new Date().getFullYear(bootcamp.data.createdAt)}
+            </nav>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -176,18 +231,26 @@ const BootcampLayout = ({
 BootcampLayout.propTypes = {
   getBootcampById: PropTypes.func.isRequired,
   getCoursesByBootcamp: PropTypes.func.isRequired,
+  getUserById: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   bootcamp: PropTypes.object.isRequired,
-  course: PropTypes.object.isRequired
+  course: PropTypes.object.isRequired,
+  getReviews: PropTypes.func.isRequired,
+  review: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   bootcamp: state.bootcamp,
+  user: state.user,
   course: state.course,
+  review: state.review,
 });
 
 export default connect(mapStateToProps, {
   getBootcampById,
   getCoursesByBootcamp,
+  getReviews,
+  getUserById,
 })(BootcampLayout);

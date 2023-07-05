@@ -20,7 +20,7 @@ const ResourceLayout = ({
     return navigate(`/bootcamp/${id}`);
   };
   const {role} = user.data
-  return loading ? (
+  return bootcamps===null ? (
     <div className="loading">
       <CircularProgress />
     </div>
