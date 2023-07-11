@@ -1,21 +1,29 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-import "./createBootcamp.css";
-import { Checkbox, CircularProgress, FormControlLabel } from "@mui/material";
-
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import { Button } from "@mui/material";
-import { createBootcamp } from "../../actions/bootcamp";
+import { getBootcampById } from "../../actions/bootcamp";
+import { Checkbox, CircularProgress, FormControlLabel } from "@mui/material";
 import { TextField } from "@mui/material";
+import { Button } from "@mui/material";
+import { updateBootcamp } from "../../actions/bootcamp";
 import { useNavigate } from "react-router-dom";
-const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
+const UpdateBootcamp = ({
+  getBootcampById,
+  bootcamp: { bootcamp, loading },
+  updateBootcamp,
+}) => {
+  const { id } = useParams();
+
+  useEffect(() => {
+    getBootcampById(id);
+  }, [getBootcampById, id]);
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     website: "",
     email: "",
-    address: "",
     phone: "",
     careers: [],
     housing: false,
@@ -28,7 +36,6 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
     description,
     website,
     email,
-    address,
     careers,
     phone,
     housing,
@@ -44,6 +51,28 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
     "Business",
     "Other",
   ];
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    updateBootcamp(
+      id,
+      name,
+      description,
+      website,
+      email,
+      careers,
+      phone,
+      housing,
+      jobAssistance,
+      jobGuarantee,
+      acceptGi
+    );
+    navigate('/bootcamps')
+  };
+  useEffect(() => {
+    if (bootcamp !== null) {
+      setFormData(bootcamp.data);
+    }
+  }, [bootcamp]);
   const onChange = (e) => {
     let { name, value } = e.target;
     if (careersList.includes(name)) {
@@ -66,36 +95,18 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
       }
     }
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    createBootcamp(
-      name,
-      description,
-      website,
-      email,
-      address,
-      careers,
-      phone,
-      housing,
-      jobAssistance,
-      jobGuarantee,
-      acceptGi
-    );
-    navigate('/bootcamps')
-  };
-
-  return user == null ? (
-    <CircularProgress />
+  return bootcamp === null ? (
+    <div className="loading">
+      <CircularProgress />
+    </div>
   ) : (
     <div className="outer-container">
       <form
         className="container createbootcamp-container"
         onSubmit={handleSubmit}
       >
-        <h1 style={{ textAlign: "center" }}>ADD BOOTCAMP</h1>
+        <h1 style={{ textAlign: "center" }}>UPDATE BOOTCAMP</h1>
         <TextField
           type="name"
           name="name"
@@ -144,16 +155,6 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
           label="Email"
           variant="filled"
           value={email}
-          onChange={onChange}
-          required
-        />
-        <TextField
-          type="address"
-          name="address"
-          id="filled-basic"
-          label="Address"
-          variant="filled"
-          value={address}
           onChange={onChange}
           required
         />
@@ -318,20 +319,23 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
           Please upload bootcamp photo in settings.
         </h4>
         <Button className="btn" type="submit" variant="contained">
-          Sign Up
+          Update
         </Button>
       </form>
     </div>
   );
 };
 
-CreateBootcamp.propTypes = {
-  createBootcamp: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+UpdateBootcamp.propTypes = {
+  bootcamp: PropTypes.object.isRequired,
+  getBootcampById: PropTypes.func.isRequired,
+  updateBootcamp: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  bootcamp: state.bootcamp,
 });
 
-export default connect(mapStateToProps, { createBootcamp })(CreateBootcamp);
+export default connect(mapStateToProps, { getBootcampById, updateBootcamp })(
+  UpdateBootcamp
+);

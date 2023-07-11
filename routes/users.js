@@ -6,9 +6,9 @@ const User = require("../models/User")
 const router = express.Router()
 
 router.use(protect);
-router.use(authorize('admin'))
+// router.use(authorize('admin'))
 
-router.route('/').get(advancedResults(User), getUsers).post(createUser);
-router.route('/:id').get(getUser).put(updateUser).delete(deleteUser);
+router.route('/').get(advancedResults(User), getUsers).post(authorize('admin'), createUser);
+router.route('/:id').get(getUser).put(authorize('admin'),updateUser).delete(authorize('admin'), deleteUser);
 
 module.exports = router

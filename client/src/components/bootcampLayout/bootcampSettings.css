@@ -1,0 +1,54 @@
+.bootcamp-settings{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    overflow: hidden;
+}
+.sidebar{
+    width: 20vw;
+    border-radius: 8px;
+    margin: 5px 0 0 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 15px;
+    box-sizing: border-box;
+    height: 40vh;
+    background-color: var(--color);
+}
+.sidebar *{
+    height: 40px;
+    border-radius: 8px;
+    background-color: var(--background-color);
+}
+.content-container{
+    width: 80%;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: auto;
+    margin: auto;
+}
+.content-container form{
+    width: 80%;
+}
+
+@media screen and (max-width: 600px){
+    .sidebar{
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+    padding: auto;
+    height: 30vh;
+    }
+    .content-container{
+        width: 90%;
+    }
+    .content-container form{
+        width: 100%;
+    }
+    .bootcamp-settings{
+        flex-direction: column;
+    }
+}

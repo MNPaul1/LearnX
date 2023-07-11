@@ -53,7 +53,7 @@ const Login = ({ login, isAuthenticated }) => {
           required
         />
         <br />
-        <Button id="btn" type="submit" variant="contained">
+        <Button className="btn" type="submit" variant="contained">
           Sign In
         </Button>
         <br />

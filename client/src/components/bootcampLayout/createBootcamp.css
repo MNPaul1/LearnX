@@ -16,7 +16,7 @@
     width: fit-content;
     flex-direction: row;
     box-sizing: border-box;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     min-width: 0;
 }
@@ -24,9 +24,8 @@
     min-width: 0;
     width: fit-content;
 }
-.radio-span h3{
-    flex: 3;
-    
+.check-box{
+    flex-wrap: wrap;
 }
 .createbootcamp-container input[type=radio]{
     width: fit-content;
@@ -40,6 +39,10 @@
     height: 50px;
     padding: auto;
     margin: auto;
+    background-color: #4717f6;
+}
+#delete-btn{
+    background-color: rgb(242, 69, 69);
 }
 
 

@@ -35,11 +35,14 @@ input:-webkit-autofill{
   border: 1px solid #b5b3b3ae;
   box-sizing: border-box;
 }
-#filled-basic, #filled-basic-label, #standard-multiline-static, #standard-multiline-static-label, #filled-multiline-static, #filled-multiline-static-label {
+#filled-basic, #filled-basic-label, #standard-multiline-static, #standard-multiline-static-label, #filled-multiline-static, #filled-multiline-static-label, #filled-read-only-input, #filled-read-only-input-label {
   color: var(--background-color);
 }
+#filled-multiline-static-label{
+  padding-left: 12px;
+}
 #filled-multiline-static{
-  padding: 8px;
+  padding: 12px;
 }
 
 #heading {
@@ -55,9 +58,6 @@ input:-webkit-autofill{
 
 #login-link {
   text-align: center;
-}
-#btn{
-    background-color: #4717f6;
 }
 a{
     text-decoration: none;

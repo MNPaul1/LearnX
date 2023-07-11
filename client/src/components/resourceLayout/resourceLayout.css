@@ -58,7 +58,7 @@
 }
 @media screen and (max-width: 550px) {
     .resource-info{
-        font-size: medium;
+        font-size: small;
     }
     .section{
         font-size: small;

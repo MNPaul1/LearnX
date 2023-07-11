@@ -80,7 +80,7 @@ const Register = ({setAlert, register, isAuthenticated})=> {
         />
         <TextField id="filled-basic" onChange={onChange} value={role} name="role" label="Role" variant="filled" />
         <br />
-        <Button id="btn" type="submit" variant="contained">Sign Up</Button>
+        <Button className="btn" type="submit" variant="contained">Sign Up</Button>
         <br />
         <p id="login-link">Have already an account? <Link to="/login">Sign in</Link> </p>
       </form>

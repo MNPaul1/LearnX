@@ -14,6 +14,7 @@ import { getCoursesByBootcamp } from "../../actions/course";
 import { useNavigate } from "react-router-dom";
 import { getReviews } from "../../actions/review";
 import { getUserById } from "../../actions/user";
+import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 
 const BootcampLayout = ({
   getBootcampById,
@@ -28,7 +29,7 @@ const BootcampLayout = ({
 }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [allUsers, setUsers] = useState([])
+  const [allUsers, setUsers] = useState([]);
 
   useEffect(() => {
     getUserById();
@@ -37,21 +38,21 @@ const BootcampLayout = ({
     getReviews(id);
   }, [getBootcampById, id, getCoursesByBootcamp, getReviews, getUserById]);
 
-  useEffect (()=> {
+  useEffect(() => {
     setUsers(user.data);
-  }, [user])
-  const getUsername = (id) =>{
-    if (allUsers){
-      const value = allUsers?.filter(user => user._id===id);
-      return value[0]?.name
+  }, [user]);
+  const getUsername = (id) => {
+    if (allUsers) {
+      const value = allUsers?.filter((user) => user._id === id);
+      return value[0]?.name;
     }
-  } 
+  };
   const skillLevels = { beginner: "20", intermediate: "50", advanced: "70" };
   const RenderComponent = (Component, value, ...rest) => {
     return bootcamp == null ? (
       <CircularProgress />
-      ) : (
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
+    ) : (
+      <Box sx={{ display: "flex", flexDirection: "row" }}>
         <Component size="small" sx={{ mr: 1 }} />
         <Box
           sx={{
@@ -65,7 +66,9 @@ const BootcampLayout = ({
       </Box>
     );
   };
-  
+  const handleSettingClick = () =>{
+    navigate(`/bootcamp-settings/${id}`)
+  }
   return bootcamp === null ? (
     <div className="loading">
       <CircularProgress />
@@ -79,7 +82,11 @@ const BootcampLayout = ({
           className="photo"
         />
         <div className="bootcamp-info">
-          <h1 className="bootcamp-title">{bootcamp.data?.name}</h1>
+          <h1 className="bootcamp-title">
+            {bootcamp.data?.name}{" "}<button style={{backgroundColor: "transparent", color: 'inherit', border: 'none', cursor: 'pointer'}} onClick={handleSettingClick}>
+              <SettingsSuggestIcon fontSize="large" />
+            </button>
+          </h1>
           <p>{bootcamp.data.description}</p>
           <Box
             sx={{

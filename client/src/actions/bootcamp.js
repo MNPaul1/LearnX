@@ -191,9 +191,9 @@ export const updateBootcamp =
         },
       };
       console.log("photo ;", photo)
-      const body = JSON.parse({
-        file: photo
-      })
+      // const body = JSON.parse({
+      //   file: photo
+      // })
       const res = await axios.put(`/api/v1/bootcamps/${id}/photo`, photo, config)
       dispatch({
         type: PHOTO_UPLOADED,
