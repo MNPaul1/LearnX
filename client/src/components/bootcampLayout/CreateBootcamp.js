@@ -71,19 +71,7 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    createBootcamp(
-      name,
-      description,
-      website,
-      email,
-      address,
-      careers,
-      phone,
-      housing,
-      jobAssistance,
-      jobGuarantee,
-      acceptGi
-    );
+    createBootcamp(formData);
     navigate('/bootcamps')
   };
 

@@ -35,10 +35,12 @@
   height: fit-content;
   column-gap: 10px;
   row-gap: 10px;
+  flex-wrap: wrap;
 }
 .course-container {
   display: flex;
   min-height: 300px;
+  min-width: 32%;
   flex-direction: column;
   background-color: var(--container-bg-color);
   cursor: pointer;
@@ -116,12 +118,24 @@
   row-gap: 5px;
   background-color: var(--container-bg-color);
 }
+.contained-container{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: var(--color);
+  min-width: 0;
+  width: min-content;
+}
 @media screen and (max-width: 600px) {
   .bootcamp-section-header {
     flex-direction: column;
   }
   .course-container {
+    min-width: 100%;
     max-width: 100%;
+  }
+  .course-container h1{
+    font-size: large;
   }
   #course-description{
     display: block;
@@ -132,13 +146,20 @@
   .review-container{
     width: 100%;
   }
+  .contained-container{
+    position: relative;
+  }
 }
 @media screen and (min-width: 600px) and (max-width: 920px) {
   .resource-container {
     width: 80%;
   }
   .course-container {
+    min-width: 49%;
     max-width: 50%;
+  }
+  .course-container h1{
+    font-size: medium;
   }
   .review-container{
     width: 60%;

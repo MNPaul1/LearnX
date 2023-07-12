@@ -55,40 +55,15 @@ export const getBootcamps = () => async (dispatch) => {
 
 //Create Bootcamp
 export const createBootcamp =
-  (
-    name,
-    description,
-    website,
-    email,
-    address,
-    careers,
-    phone,
-    housing,
-    jobAssistance,
-    jobGuarantee,
-    acceptGi
-  ) =>
+  (formData) =>
   async (dispatch) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    const body = JSON.stringify({
-      name,
-      description,
-      website,
-      email,
-      address,
-      careers,
-      phone,
-      housing,
-      jobAssistance,
-      jobGuarantee,
-      acceptGi,
-    });
     try {
-      const res = await axios.post("/api/v1/bootcamps", body, config);
+      const res = await axios.post("/api/v1/bootcamps", formData, config);
       dispatch({
         type: BOOTCAMP_CREATED,
         payload: res.data,
@@ -110,18 +85,8 @@ export const createBootcamp =
 
 //Update Bootcamp Info
 export const updateBootcamp =
-  (
-    id,
-    name,
-    description,
-    website,
-    email,
-    careers,
-    phone,
-    housing,
-    jobAssistance,
-    jobGuarantee,
-    acceptGi
+  (id,
+formData
   ) =>
   async (dispatch) => {
     const config = {
@@ -129,20 +94,8 @@ export const updateBootcamp =
         "Content-Type": "application/json",
       },
     };
-    const body = JSON.stringify({
-      name,
-      description,
-      website,
-      email,
-      careers,
-      phone,
-      housing,
-      jobAssistance,
-      jobGuarantee,
-      acceptGi,
-    });
     try {
-      const res = await axios.put(`/api/v1/bootcamps/${id}`, body, config);
+      const res = await axios.put(`/api/v1/bootcamps/${id}`, formData, config);
       dispatch({
         type: BOOTCAMP_UPDATED,
         payload: res.data,

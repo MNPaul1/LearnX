@@ -15,7 +15,7 @@ const CoursesLayout = ({ getCourses, auth, course: { courses, loading } }) => {
   useEffect(() => {
     getCourses();
   }, [getCourses]);
-  return loading ? (
+  return courses===null ? (
     <div className="loading">
       <CircularProgress />
     </div>

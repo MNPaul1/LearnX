@@ -53,19 +53,7 @@ const UpdateBootcamp = ({
   ];
   const handleSubmit = async (e) => {
     e.preventDefault();
-    updateBootcamp(
-      id,
-      name,
-      description,
-      website,
-      email,
-      careers,
-      phone,
-      housing,
-      jobAssistance,
-      jobGuarantee,
-      acceptGi
-    );
+    updateBootcamp(bootcamp.data._id, formData);
     navigate('/bootcamps')
   };
   useEffect(() => {

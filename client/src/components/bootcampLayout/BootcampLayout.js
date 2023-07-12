@@ -66,9 +66,9 @@ const BootcampLayout = ({
       </Box>
     );
   };
-  const handleSettingClick = () =>{
-    navigate(`/bootcamp-settings/${id}`)
-  }
+  const handleSettingClick = () => {
+    navigate(`/bootcamp-settings/${id}`);
+  };
   return bootcamp === null ? (
     <div className="loading">
       <CircularProgress />
@@ -83,7 +83,16 @@ const BootcampLayout = ({
         />
         <div className="bootcamp-info">
           <h1 className="bootcamp-title">
-            {bootcamp.data?.name}{" "}<button style={{backgroundColor: "transparent", color: 'inherit', border: 'none', cursor: 'pointer'}} onClick={handleSettingClick}>
+            {bootcamp.data?.name}{" "}
+            <button
+              style={{
+                backgroundColor: "transparent",
+                color: "inherit",
+                border: "none",
+                cursor: "pointer",
+              }}
+              onClick={handleSettingClick}
+            >
               <SettingsSuggestIcon fontSize="large" />
             </button>
           </h1>
@@ -138,6 +147,7 @@ const BootcampLayout = ({
             Job assistance: {bootcamp.data.jobAssistance ? "Yes" : "No"}
           </nav>
           <nav>Job Guarantee: {bootcamp.data.jobGuarantee ? "Yes" : "No"} </nav>
+          <nav>Accept Gi: {bootcamp.data.acceptGi ? "Yes" : "No"} </nav>
         </div>
       </div>
       <br />

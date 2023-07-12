@@ -19,6 +19,7 @@ import CoursesLayout from "./components/resourceLayout/CoursesLayout";
 import CourseLayout from "./components/courseLayout/CourseLayout";
 import UpdateBootcamp from "./components/bootcampLayout/UpdateBootcamp";
 import BootcampSettings from "./components/bootcampLayout/BootcampSettings";
+import CourseSettings from "./components/courseLayout/CourseSettings";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="bootcamp/:id" element={<PrivateRoute component={BootcampLayout} />} />
           <Route path="add-bootcamp" element={<PrivateRoute component={CreateBootcamp} />} />
           <Route path="bootcamp-settings/:id" element={<PrivateRoute component={BootcampSettings} />} />
+          <Route path="/course-settings/:id" element={<PrivateRoute component={CourseSettings} />} />
         </Routes>
         <Footer />
       </Router>
