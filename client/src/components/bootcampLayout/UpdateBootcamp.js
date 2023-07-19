@@ -3,14 +3,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { getBootcampById } from "../../actions/bootcamp";
-import { Checkbox, CircularProgress, FormControlLabel } from "@mui/material";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { updateBootcamp } from "../../actions/bootcamp";
 import { useNavigate } from "react-router-dom";
+import LoadingLayout from "../layout/loadingLayout";
 const UpdateBootcamp = ({
   getBootcampById,
-  bootcamp: { bootcamp, loading },
+  bootcamp: { bootcamp },
   updateBootcamp,
 }) => {
   const { id } = useParams();
@@ -86,7 +87,7 @@ const UpdateBootcamp = ({
   };
   return bootcamp === null ? (
     <div className="loading">
-      <CircularProgress />
+      <LoadingLayout />
     </div>
   ) : (
     <div className="outer-container">
@@ -205,9 +206,9 @@ const UpdateBootcamp = ({
         </span>
         <span className="radio-span">
           <h3>Housing</h3>
-          <label htmlFor="false">
+          <label htmlFor="h_false">
             <input
-              id="false"
+              id="h_false"
               type="radio"
               value={false}
               name="housing"
@@ -216,10 +217,10 @@ const UpdateBootcamp = ({
             />
             No
           </label>
-          <label htmlFor="true">
+          <label htmlFor="h_true">
             <input
               type="radio"
-              id="true"
+              id="h_true"
               value={true}
               name="housing"
               onChange={onChange}
@@ -230,9 +231,9 @@ const UpdateBootcamp = ({
         </span>
         <span className="radio-span">
           <h3>Job Assistance</h3>
-          <label htmlFor="false">
+          <label htmlFor="j_false">
             <input
-              id="false"
+              id="j_false"
               type="radio"
               value={false}
               name="jobAssistance"
@@ -241,10 +242,10 @@ const UpdateBootcamp = ({
             />
             No
           </label>
-          <label htmlFor="true">
+          <label htmlFor="j_true">
             <input
               type="radio"
-              id="true"
+              id="j_true"
               value={true}
               name="jobAssistance"
               onChange={onChange}
@@ -255,9 +256,9 @@ const UpdateBootcamp = ({
         </span>
         <span className="radio-span">
           <h3>Job Guarantee</h3>
-          <label htmlFor="false">
+          <label htmlFor="jg_false">
             <input
-              id="false"
+              id="jg_false"
               type="radio"
               value={false}
               name="jobGuarantee"
@@ -266,10 +267,10 @@ const UpdateBootcamp = ({
             />
             No
           </label>
-          <label htmlFor="true">
+          <label htmlFor="jg_true">
             <input
               type="radio"
-              id="true"
+              id="jg_true"
               value={true}
               name="jobGuarantee"
               onChange={onChange}
@@ -280,9 +281,9 @@ const UpdateBootcamp = ({
         </span>
         <span className="radio-span">
           <h3>Accept Gi</h3>
-          <label htmlFor="false">
+          <label htmlFor="ag_false">
             <input
-              id="false"
+              id="ag_false"
               type="radio"
               value={false}
               name="acceptGi"
@@ -291,10 +292,10 @@ const UpdateBootcamp = ({
             />
             No
           </label>
-          <label htmlFor="true">
+          <label htmlFor="ag_true">
             <input
               type="radio"
-              id="true"
+              id="ag_true"
               value={true}
               name="acceptGi"
               onChange={onChange}

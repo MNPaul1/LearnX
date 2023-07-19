@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import { updateCourse } from "../../actions/course";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCourseById } from "../../actions/course";
-import { TextField, Button, CircularProgress } from "@mui/material";
+import { TextField, Button } from "@mui/material";
+import LoadingLayout from '../layout/loadingLayout'
 
 export const UpdateCourse = ({ getCourseById, course: { current_course }, updateCourse }) => {
   const { id } = useParams();
@@ -54,7 +55,7 @@ export const UpdateCourse = ({ getCourseById, course: { current_course }, update
   };
   return current_course === null ? (
     <div className="loading">
-      <CircularProgress />
+      <LoadingLayout />
     </div>
   ) : (
     <div className="outer-container">

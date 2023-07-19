@@ -1,0 +1,15 @@
+.review-container{
+    flex-direction: column;
+    height: fit-content;
+}
+
+.edit-btn{
+    position: absolute;
+    right: 50px;
+    top: 15px;
+}
+.delete-btn{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}

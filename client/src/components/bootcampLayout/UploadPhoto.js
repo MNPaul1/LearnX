@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getBootcampById } from "../../actions/bootcamp";
-import { CircularProgress, TextField, Button } from "@mui/material";
+import {TextField, Button } from "@mui/material";
 import { uploadPhoto } from "../../actions/bootcamp";
+import LoadingLayout from "../layout/loadingLayout";
 export const UploadPhoto = ({ bootcamp: { bootcamp }, getBootcampById, uploadPhoto}) => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const handleChange = (e) => {
 }
 return bootcamp === null ? (
     <div className="loading">
-      <CircularProgress />
+      <LoadingLayout />
     </div>
   ) : (
     <div className="outer-container">

@@ -6,12 +6,13 @@ import { getBootcamps } from "../../actions/bootcamp";
 import PropTypes from "prop-types";
 import { Rating } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
-
-const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
+import { getUserById } from "../../actions/user";
+import LoadingLayout from "./loadingLayout";
+const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading }, getUserById }) => {
   useEffect(() => {
     getBootcamps();
-  }, [getBootcamps]);
+    getUserById()
+  }, [getBootcamps, getUserById]);
   const navigate = useNavigate();
   const bootcampsBenefits = [
     {
@@ -45,7 +46,7 @@ const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
   };
   return loading ? (
     <div className="loading">
-      <CircularProgress />
+      <LoadingLayout />
     </div>
   ) : (
     <Fragment>
@@ -126,10 +127,12 @@ const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
 Landing.propTypes = {
   getBootcamps: PropTypes.func.isRequired,
   bootcamp: PropTypes.object.isRequired,
+  getUserById: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   bootcamp: state.bootcamp,
+  user: state.user
 });
 
-export default connect(mapStateToProps, { getBootcamps })(Landing);
+export default connect(mapStateToProps, { getBootcamps, getUserById })(Landing);

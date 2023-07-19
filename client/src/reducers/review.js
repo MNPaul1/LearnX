@@ -1,7 +1,14 @@
-import { GET_REVIEWS, REVIEW_ERROR } from "../actions/types";
+import {
+  GET_REVIEW,
+  GET_REVIEWS,
+  REVIEW_DELETED,
+  REVIEW_ERROR,
+  REVIEW_UPDATED,
+} from "../actions/types";
 
 const initialState = {
   reviews: [],
+  current_review: {},
   loading: true,
   error: {},
 };
@@ -13,6 +20,19 @@ export default function review(state = initialState, action) {
       return {
         ...state,
         reviews: payload,
+        loading: false,
+      };
+    case GET_REVIEW:
+      return {
+        ...state,
+        current_review: payload,
+        loading: false,
+      };
+    case REVIEW_UPDATED:
+    case REVIEW_DELETED:
+      return {
+        ...state,
+        current_review: payload,
         loading: false,
       };
     case REVIEW_ERROR:

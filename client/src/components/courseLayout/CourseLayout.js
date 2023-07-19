@@ -1,32 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCourseById } from "../../actions/course";
 import { useParams } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { getUserById } from "../../actions/user";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import LoadingLayout from "../layout/loadingLayout";
+import { getUserById } from "../../actions/user";
 
 function CourseLayout({
   getCourseById,
-  course: { current_course },
   getUserById,
-  user: { user },
+  course: { current_course },
+  user: { users, loading},
 }) {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [users, setUsers] = useState([]);
   useEffect(() => {
     getCourseById(id);
-    getUserById();
-  }, [getCourseById, id, getUserById]);
+    getUserById()
+  }, [getCourseById, getUserById, id]);
 
-  useEffect(() => setUsers(user.data), [user]);
 
   const getUsername = (id) => {
-    if (users) {
-      const value = users?.filter((user) => user._id === id);
+    if(users?.data!==null && !loading){
+      const value = users.data?.filter((user) => user._id === id);
       return value[0]?.name;
     }
   };
@@ -35,7 +33,7 @@ function CourseLayout({
   };
   return current_course === null ? (
     <div className="loading">
-      <CircularProgress />
+      <LoadingLayout />
     </div>
   ) : (
     <div className="outer-container">
@@ -94,7 +92,6 @@ function CourseLayout({
 CourseLayout.propTypes = {
   course: PropTypes.object.isRequired,
   getCourseById: PropTypes.func.isRequired,
-  getUserById: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
 

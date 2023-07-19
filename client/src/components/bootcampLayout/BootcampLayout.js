@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getBootcampById } from "../../actions/bootcamp";
-import { useParams } from "react-router-dom";
-import { Box, CircularProgress } from "@mui/material";
+import { Link, useParams } from "react-router-dom";
+import { Box, Button, TextField } from "@mui/material";
 import { Rating } from "@mui/material";
 import "./bootcampLayout.css";
 import LaunchIcon from "@mui/icons-material/Launch";
@@ -13,44 +13,60 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { getCoursesByBootcamp } from "../../actions/course";
 import { useNavigate } from "react-router-dom";
 import { getReviews } from "../../actions/review";
-import { getUserById } from "../../actions/user";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
-
+import { getUserById } from "../../actions/user";
+import { addReview } from "../../actions/review";
+import LoadingLayout from "../layout/loadingLayout";
 const BootcampLayout = ({
   getBootcampById,
   getReviews,
   auth,
   getCoursesByBootcamp,
   getUserById,
-  user: { user },
+  addReview,
+  user: { users, loading },
   course: { courses },
-  bootcamp: { bootcamp, loading },
+  bootcamp: { bootcamp },
   review: { reviews },
 }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [allUsers, setUsers] = useState([]);
-
   useEffect(() => {
-    getUserById();
     getBootcampById(id);
     getCoursesByBootcamp(id);
     getReviews(id);
-  }, [getBootcampById, id, getCoursesByBootcamp, getReviews, getUserById]);
-
-  useEffect(() => {
-    setUsers(user.data);
-  }, [user]);
+    getUserById();
+  }, [getBootcampById, id, getUserById, getCoursesByBootcamp, getReviews]);
+  
   const getUsername = (id) => {
-    if (allUsers) {
-      const value = allUsers?.filter((user) => user._id === id);
+    if (users?.data !== null && !loading) {
+      const value = users.data?.filter((user) => user._id === id);
       return value[0]?.name;
     }
   };
+  const [reviewFormData, setFormData] = useState({
+    title:'',
+    rating:null,
+    text:'',
+  })
+  const {title, rating, text} = reviewFormData;
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    addReview(id, reviewFormData);
+    navigate("/bootcamps");
+  }
+  const handleReviewDataChange = (e) =>{
+    let {name, value} = e.target;
+    if (name === "rating") {
+      value = (parseFloat(value) * 10) / 5;
+    }
+    setFormData({...reviewFormData, [name]: value})
+  }
+
   const skillLevels = { beginner: "20", intermediate: "50", advanced: "70" };
   const RenderComponent = (Component, value, ...rest) => {
     return bootcamp == null ? (
-      <CircularProgress />
+      <LoadingLayout />
     ) : (
       <Box sx={{ display: "flex", flexDirection: "row" }}>
         <Component size="small" sx={{ mr: 1 }} />
@@ -71,7 +87,7 @@ const BootcampLayout = ({
   };
   return bootcamp === null ? (
     <div className="loading">
-      <CircularProgress />
+      <LoadingLayout />
     </div>
   ) : (
     <div className="bootcamp-section">
@@ -104,7 +120,7 @@ const BootcampLayout = ({
             }}
           >
             <Box sx={{ mr: 2, fontWeight: "bolder" }}>
-              {(bootcamp.data.averageRating * 5) / 10}
+              {parseFloat(((bootcamp.data.averageRating * 5) / 10).toFixed(2))}
             </Box>
             <Rating
               name="half-rating-read"
@@ -205,50 +221,94 @@ const BootcampLayout = ({
         </div>
       </div>
       <br />
+      <h1>Feedback</h1>
+      <form className="container" onSubmit={handleReviewSubmit}>
+        <TextField
+          type="text"
+          id="filled-basic"
+          variant="filled"
+          label="Title"
+          name="title"
+          value={title}
+          onChange={handleReviewDataChange}
+          required
+        />
+        <TextField
+          type="number"
+          value={(rating * 5) / 10}
+          id="filled-basic"
+          InputProps={{ inputProps: { min: 0, max: 5 } }}
+          variant="filled"
+          label="Rating"
+          name="rating"
+          onChange={handleReviewDataChange}
+          required
+        />
+        <TextField
+          type="text"
+          value={text}
+          id="filled-multiline-static"
+          variant="standard"
+          multiline
+          rows={4}
+          label="Comment"
+          name="text"
+          onChange={handleReviewDataChange}
+          required
+        />
+        <Button variant="contained" type="submit">
+          Post
+        </Button>
+      </form>
+      <br />
+
+      <h1>Reviews</h1>
+      <div className="review-container">
+        {reviews.data?.map(
+          (review, id) =>
+            id < 1 && (
+              <div key={review._id} className="review">
+                <h2>{review.title}</h2>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box sx={{ mr: 1, fontWeight: "bolder" }}>
+                    {(review.rating * 5) / 10}
+                  </Box>
+                  <Rating
+                    name="half-rating-read"
+                    defaultValue={(review.rating * 5) / 10}
+                    precision={0.5}
+                    size="medium"
+                    readOnly
+                  />
+                </Box>
+                <p>{review.text}</p>
+                <h3>{getUsername(review.user)}</h3>
+                <nav>
+                  {new Date().getMonth(bootcamp.data.createdAt)}/
+                  {new Date().getFullYear(bootcamp.data.createdAt)}
+                </nav>
+              </div>
+            )
+        )}
+        <Link to="/reviews">All reviews</Link>
+      </div>
       <br />
       <h1 style={{ textAlign: "center", fontWeight: "bold" }}>
         Average Cost: CA${bootcamp.data.averageCost}
       </h1>
-      <br />
-      <h1>Feedback</h1>
-      <div className="review-container">
-        {reviews.data?.map((review) => (
-          <div key={review._id} className="review">
-            <h2>{review.title}</h2>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <Box sx={{ mr: 1, fontWeight: "bolder" }}>
-                {(review.rating * 5) / 10}
-              </Box>
-              <Rating
-                name="half-rating-read"
-                defaultValue={(review.rating * 5) / 10}
-                precision={0.5}
-                size="medium"
-                readOnly
-              />
-            </Box>
-            <p>{review.text}</p>
-            <h3>{getUsername(review.user)}</h3>
-            <nav>
-              {new Date().getMonth(bootcamp.data.createdAt)}/
-              {new Date().getFullYear(bootcamp.data.createdAt)}
-            </nav>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
 
 BootcampLayout.propTypes = {
   getBootcampById: PropTypes.func.isRequired,
+  addReview: PropTypes.func.isRequired,
   getCoursesByBootcamp: PropTypes.func.isRequired,
-  getUserById: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   bootcamp: PropTypes.object.isRequired,
@@ -270,4 +330,5 @@ export default connect(mapStateToProps, {
   getCoursesByBootcamp,
   getReviews,
   getUserById,
+  addReview
 })(BootcampLayout);

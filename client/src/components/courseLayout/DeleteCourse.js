@@ -3,7 +3,8 @@ import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
 import { getCourseById } from '../../actions/course'
 import { useParams, useNavigate } from 'react-router-dom'
-import { CircularProgress, TextField, Button } from '@mui/material'
+import { TextField, Button } from '@mui/material'
+import LoadingLayout from '../layout/loadingLayout'
 import { deleteCourse } from '../../actions/course'
 export const DeleteCourse = ({getCourseById, course: {current_course}, deleteCourse }) => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const handleSubmit = (e) =>{
 }
   return current_course === null ? (
     <div className="loading">
-      <CircularProgress />
+      <LoadingLayout />
     </div>
   ) : (
     <div className="outer-container">

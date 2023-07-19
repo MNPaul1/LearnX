@@ -22,6 +22,11 @@ export const loadUser = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    let errors = error.response.data.error;
+    if (errors) {
+      errors = errors.split(",");
+      errors.forEach((error) => dispatch(setAlert(error, "error")));
+    }
     dispatch({
       type: AUTH_ERROR,
     });

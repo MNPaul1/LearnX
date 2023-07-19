@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCourses } from "../../actions/course";
-import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import LoadingLayout from "../layout/loadingLayout";
 
 const CoursesLayout = ({ getCourses, auth, course: { courses, loading } }) => {
   const navigate = useNavigate();
@@ -17,14 +17,14 @@ const CoursesLayout = ({ getCourses, auth, course: { courses, loading } }) => {
   }, [getCourses]);
   return courses===null ? (
     <div className="loading">
-      <CircularProgress />
+      <LoadingLayout />
     </div>
   ) : (
     <div className="section">
       {courses.data?.map((course) => (
         <div
-          key={course.id}
-          id={course.id}
+          key={course._id}
+          id={course._id}
           className="resource-container"
           onClick={handleClick}
         >

@@ -14,9 +14,14 @@ export const getCourses = () => async dispatch => {
             payload: res.data
         })
     } catch (error) {
+        let errors = error.response.data.error;
+        console.log(errors);
+        if (errors) {
+          errors = errors.split(",");
+          errors.forEach((error) => dispatch(setAlert(error, "error")));
+        }
         dispatch({
             type: COURSE_ERROR,
-            payload:{msg: error.response.statusText, status: error.response.status}
         })
     }
 }
@@ -30,9 +35,14 @@ export const getCourseById = (id) => async dispatch => {
             payload: res.data
         })
     } catch (error) {
+        let errors = error.response.data.error;
+        console.log(errors);
+        if (errors) {
+          errors = errors.split(",");
+          errors.forEach((error) => dispatch(setAlert(error, "error")));
+        }
         dispatch({
             type: COURSE_ERROR,
-            payload:{msg: error.response.statusText, status: error.response.status}
         })
     }
 }
@@ -47,9 +57,14 @@ export const getCoursesByBootcamp = (id) =>async dispatch => {
             payload: res.data
         })
     } catch (error) {
+        let errors = error.response.data.error;
+        console.log(errors);
+        if (errors) {
+          errors = errors.split(",");
+          errors.forEach((error) => dispatch(setAlert(error, "error")));
+        }
         dispatch({
             type: COURSE_ERROR,
-            payload: {msg: error.response.statusText, status: error.response.status}
         })
     }
 }
@@ -69,10 +84,14 @@ export const addCourse = (id, formData) => async (dispatch) =>{
         })
         dispatch(setAlert("Course Added Successfully", "success"))
     } catch (error) {
-        console.error(error)
+        let errors = error.response.data.error;
+        console.log(errors);
+        if (errors) {
+          errors = errors.split(",");
+          errors.forEach((error) => dispatch(setAlert(error, "error")));
+        }
         dispatch({
             type: COURSE_ADDED_ERROR,
-            payload: {msg: error.response.statusText, status: error.response.status}
         })
     }
 }
@@ -87,9 +106,14 @@ export const updateCourse = (id, formData) => async (dispatch) =>{
         })
         dispatch(setAlert("Course Updated Successfully", "success"))
     } catch(error){
+        let errors = error.response.data.error;
+        console.log(errors);
+        if (errors) {
+          errors = errors.split(",");
+          errors.forEach((error) => dispatch(setAlert(error, "error")));
+        }
         dispatch({
             type: COURSE_UPDATED_ERROR,
-            payload: {msg: error.response.statusText, status: error.response.status}
         })
     }
 }
@@ -104,9 +128,14 @@ export const deleteCourse = (id) => async (dispatch) =>{
         })
         dispatch(setAlert("Course Deleted Successfully", "success"))
     } catch (error) {
+        let errors = error.response.data.error;
+        console.log(errors);
+        if (errors) {
+          errors = errors.split(",");
+          errors.forEach((error) => dispatch(setAlert(error, "error")));
+        }
         dispatch({
             type: COURSE_DELETING_ERROR,
-            payload: {msg: error.response.statusText, status: error.response.status}
         })
     }
 }

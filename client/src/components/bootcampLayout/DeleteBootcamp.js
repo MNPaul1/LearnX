@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getBootcampById, deleteBootcamp } from "../../actions/bootcamp";
 import { useNavigate, useParams } from "react-router-dom";
-import { CircularProgress, TextField, Button } from "@mui/material";
+import { TextField, Button } from "@mui/material";
+import LoadingLayout from "../layout/loadingLayout";
 export const DeleteBootcamp = ({ bootcamp: { bootcamp }, getBootcampById, deleteBootcamp }) => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const handleSubmit = (e) =>{
 }
   return bootcamp === null ? (
     <div className="loading">
-      <CircularProgress />
+      <LoadingLayout />
     </div>
   ) : (
     <div className="outer-container">

@@ -124,7 +124,8 @@
   right: 0;
   color: var(--color);
   min-width: 0;
-  width: min-content;
+  max-width: 350px;
+  width: max-content;
 }
 @media screen and (max-width: 600px) {
   .bootcamp-section-header {
