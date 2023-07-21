@@ -9,9 +9,11 @@ import LoadingLayout from "../layout/loadingLayout";
 const ResourceLayout = ({
   getBootcamps,
   auth: { user },
-  bootcamp: { bootcamps },
+  bootcamp: { bootcamps, loading },
 }) => {
   useEffect(() => {
+    document.title = "LearnX - All Bootcamps"
+
     getBootcamps();
   }, [getBootcamps]);
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ const ResourceLayout = ({
     return navigate(`/bootcamp/${id}`);
   };
   const { role } = user.data;
-  return bootcamps === null ? (
+  return bootcamps === null && !loading ? (
     <div className="loading">
       <LoadingLayout />
     </div>

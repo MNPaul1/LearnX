@@ -6,11 +6,11 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import LoadingLayout from "../layout/loadingLayout";
-import { getUserById } from "../../actions/user";
+import { getUsers } from "../../actions/user";
 
 function CourseLayout({
   getCourseById,
-  getUserById,
+  getUsers,
   course: { current_course },
   user: { users, loading},
 }) {
@@ -18,9 +18,12 @@ function CourseLayout({
   const { id } = useParams();
   useEffect(() => {
     getCourseById(id);
-    getUserById()
-  }, [getCourseById, getUserById, id]);
-
+    getUsers()
+    
+  }, [getCourseById, getUsers, id]);
+  useEffect(()=>{
+    document.title = `LearnX - ${current_course?.data?.title}`
+  },[current_course])
 
   const getUsername = (id) => {
     if(users?.data!==null && !loading){
@@ -100,6 +103,6 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps, { getCourseById, getUserById })(
+export default connect(mapStateToProps, { getCourseById, getUsers })(
   CourseLayout
 );

@@ -9,6 +9,8 @@ import { createBootcamp } from "../../actions/bootcamp";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
+  document.title = "LearnX - Create Bootcamp"
+
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: "",

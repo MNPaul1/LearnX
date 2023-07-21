@@ -10,6 +10,7 @@ export const DeleteCourse = ({getCourseById, course: {current_course}, deleteCou
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
+    document.title = "LearnX - Delete Course"
     getCourseById(id);
   }, [getCourseById, id]);
 const handleSubmit = (e) =>{

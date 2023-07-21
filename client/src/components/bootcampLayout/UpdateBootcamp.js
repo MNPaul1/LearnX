@@ -17,9 +17,10 @@ const UpdateBootcamp = ({
   const { id } = useParams();
 
   useEffect(() => {
+    document.title = "LearnX - Update Bootcamp";
     getBootcampById(id);
   }, [getBootcampById, id]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -55,7 +56,7 @@ const UpdateBootcamp = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     updateBootcamp(bootcamp.data._id, formData);
-    navigate('/bootcamps')
+    navigate("/bootcamps");
   };
   useEffect(() => {
     if (bootcamp !== null) {

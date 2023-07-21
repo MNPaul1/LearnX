@@ -6,13 +6,15 @@ import { getBootcamps } from "../../actions/bootcamp";
 import PropTypes from "prop-types";
 import { Rating } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { getUserById } from "../../actions/user";
+import { getUsers } from "../../actions/user";
 import LoadingLayout from "./loadingLayout";
-const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading }, getUserById }) => {
+const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading }, getUsers }) => {
   useEffect(() => {
+    document.title = "LearnX - Home"
+
     getBootcamps();
-    getUserById()
-  }, [getBootcamps, getUserById]);
+    getUsers()
+  }, [getBootcamps, getUsers]);
   const navigate = useNavigate();
   const bootcampsBenefits = [
     {
@@ -127,7 +129,7 @@ const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading }, getUserById }
 Landing.propTypes = {
   getBootcamps: PropTypes.func.isRequired,
   bootcamp: PropTypes.object.isRequired,
-  getUserById: PropTypes.func.isRequired
+  getUsers: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -135,4 +137,4 @@ const mapStateToProps = (state) => ({
   user: state.user
 });
 
-export default connect(mapStateToProps, { getBootcamps, getUserById })(Landing);
+export default connect(mapStateToProps, { getBootcamps, getUsers })(Landing);

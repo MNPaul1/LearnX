@@ -14,7 +14,7 @@ import { getCoursesByBootcamp } from "../../actions/course";
 import { useNavigate } from "react-router-dom";
 import { getReviews } from "../../actions/review";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
-import { getUserById } from "../../actions/user";
+import { getUsers } from "../../actions/user";
 import { addReview } from "../../actions/review";
 import LoadingLayout from "../layout/loadingLayout";
 const BootcampLayout = ({
@@ -22,7 +22,7 @@ const BootcampLayout = ({
   getReviews,
   auth,
   getCoursesByBootcamp,
-  getUserById,
+  getUsers,
   addReview,
   user: { users, loading },
   course: { courses },
@@ -35,9 +35,12 @@ const BootcampLayout = ({
     getBootcampById(id);
     getCoursesByBootcamp(id);
     getReviews(id);
-    getUserById();
-  }, [getBootcampById, id, getUserById, getCoursesByBootcamp, getReviews]);
-  
+    getUsers();
+  }, [getBootcampById, id, getUsers, getCoursesByBootcamp, getReviews]);
+
+  useEffect(()=>{
+    document.title = `LearnX - ${bootcamp?.data?.name}`
+  },[bootcamp])
   const getUsername = (id) => {
     if (users?.data !== null && !loading) {
       const value = users.data?.filter((user) => user._id === id);
@@ -329,6 +332,6 @@ export default connect(mapStateToProps, {
   getBootcampById,
   getCoursesByBootcamp,
   getReviews,
-  getUserById,
+  getUsers,
   addReview
 })(BootcampLayout);

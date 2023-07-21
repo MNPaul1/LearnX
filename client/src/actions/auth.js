@@ -8,6 +8,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  USER_UPDATED,
+  USER_ERROR
 } from "../actions/types";
 import setAuthToken from "../utils/setAuthToken";
 //Load  User
@@ -90,6 +92,28 @@ export const login = (email, password) => async (dispatch) => {
     });
   }
 };
+
+//Update User
+export const updateUser = (formData) => async dispatch =>{
+  try {
+      const res = await axios.put(`/api/v1/auth/updatedetails`, formData)
+      dispatch({
+          try: USER_UPDATED,
+          payload: res.data
+      })
+  } catch (error) {
+      let errors = error.response.data.error;
+      if (errors) {
+        errors = errors.split(",");
+        errors.forEach((error) => dispatch(setAlert(error, "error")));
+      }
+      dispatch({
+        type: USER_ERROR,
+        payload: error
+      });
+  }
+}
+
 
 //Logout
 export const logout = () => dispatch => {

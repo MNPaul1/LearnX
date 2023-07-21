@@ -11,6 +11,7 @@ export const UploadPhoto = ({ bootcamp: { bootcamp }, getBootcampById, uploadPho
   const navigate = useNavigate();
   const [currentPhoto, setPhoto] = useState()
   useEffect(() => {
+  document.title = "LearnX - Upload Bootcamp Photo"
     getBootcampById(id);
 }, [getBootcampById, id]);
 useEffect(()=>{

@@ -13,6 +13,7 @@ const CoursesLayout = ({ getCourses, auth, course: { courses, loading } }) => {
     return navigate(`/course/${id}`)
   }
   useEffect(() => {
+    document.title = "LearnX - All Courses"
     getCourses();
   }, [getCourses]);
   return courses===null ? (

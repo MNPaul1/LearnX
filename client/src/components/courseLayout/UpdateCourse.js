@@ -10,6 +10,7 @@ import LoadingLayout from '../layout/loadingLayout'
 export const UpdateCourse = ({ getCourseById, course: { current_course }, updateCourse }) => {
   const { id } = useParams();
   const navigate = useNavigate();
+  document.title = "LearnX - Update Course"
 
   const [formData, setFormData] = useState({
     title: "",

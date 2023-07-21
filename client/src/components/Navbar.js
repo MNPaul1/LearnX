@@ -16,8 +16,10 @@ import PropTypes from "prop-types";
 import { logout } from "../actions/auth";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
-
-function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
+function ResponsiveAppBar({
+  auth: { isAuthenticated, user },
+  logout,
+}) {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -36,7 +38,8 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  return (
+
+  return  (
     <AppBar position="static" sx={{ backgroundColor: "#0b0b16" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -60,7 +63,7 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
               color: "inherit",
               textDecoration: "none",
             }}
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
           >
             LearnX
           </Typography>
@@ -95,13 +98,28 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center" onClick={() => navigate('/bootcamps')}>ALL BOOTCAMPS</Typography>
+                <Typography
+                  textAlign="center"
+                  onClick={() => navigate("/bootcamps")}
+                >
+                  ALL BOOTCAMPS
+                </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center" onClick={() => navigate('/courses')}>ALL COURSES</Typography>
+                <Typography
+                  textAlign="center"
+                  onClick={() => navigate("/courses")}
+                >
+                  ALL COURSES
+                </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center"  onClick={() => navigate('/add-bootcamp')}>ADD BOOTCAMP</Typography>
+                <Typography
+                  textAlign="center"
+                  onClick={() => navigate("/add-bootcamp")}
+                >
+                  ADD BOOTCAMP
+                </Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -125,7 +143,7 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
               color: "inherit",
               textDecoration: "none",
             }}
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
           >
             LearnX
           </Typography>
@@ -134,21 +152,19 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-            <div onClick={() => navigate('/bootcamps')}>ALL BOOTCAMPS</div>
-
+              <div onClick={() => navigate("/bootcamps")}>ALL BOOTCAMPS</div>
             </Button>
             <Button
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              <div onClick={() => navigate('/courses')}>ALL COURSES</div>
+              <div onClick={() => navigate("/courses")}>ALL COURSES</div>
             </Button>
             <Button
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-            <div onClick={() => navigate('/add-bootcamp')}>ADD BOOTCAMP</div>
-
+              <div onClick={() => navigate("/add-bootcamp")}>ADD BOOTCAMP</div>
             </Button>
           </Box>
           {!isAuthenticated && (
@@ -185,20 +201,17 @@ function ResponsiveAppBar({ auth: { isAuthenticated, loading }, logout }) {
                   onClick={handleCloseUserMenu}
                   sx={{
                     flexDirection: "column",
-                    rowGap: 2,
-                    alignItems: "flex-start",
+                    rowGap: 4,
+                    alignItems: "center",
+                    width: "250px",
                     color: "black",
                   }}
                 >
+                  <Typography sx={{cursor:'default'}}><b>{user?.data?.name}</b></Typography>
                   <Typography
-                  // onClick={}
+                  onClick={() => navigate('profile')}
                   >
                     Profile
-                  </Typography>
-                  <Typography
-                  // onClick={}
-                  >
-                    Account
                   </Typography>
                   <Typography onClick={logout}>Logout</Typography>
                 </MenuItem>

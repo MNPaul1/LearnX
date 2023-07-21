@@ -23,6 +23,7 @@ export const AddCourse = ({ addCourse }) => {
   } = formData;
   const { id } = useParams();
   const navigate = useNavigate();
+  document.title = "LearnX - Add Course"
 
   const handleSubmit = (e) => {
     e.preventDefault();

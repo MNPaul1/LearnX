@@ -5,17 +5,22 @@ import { getBootcampById, deleteBootcamp } from "../../actions/bootcamp";
 import { useNavigate, useParams } from "react-router-dom";
 import { TextField, Button } from "@mui/material";
 import LoadingLayout from "../layout/loadingLayout";
-export const DeleteBootcamp = ({ bootcamp: { bootcamp }, getBootcampById, deleteBootcamp }) => {
+export const DeleteBootcamp = ({
+  bootcamp: { bootcamp },
+  getBootcampById,
+  deleteBootcamp,
+}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
+    document.title = "LearnX - Delete Bootcamp";
     getBootcampById(id);
   }, [getBootcampById, id]);
-const handleSubmit = (e) =>{
-    e.preventDefault()
-    deleteBootcamp(id)
-    navigate("/bootcamps")
-}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    deleteBootcamp(id);
+    navigate("/bootcamps");
+  };
   return bootcamp === null ? (
     <div className="loading">
       <LoadingLayout />
@@ -51,7 +56,13 @@ const handleSubmit = (e) =>{
             readOnly: true,
           }}
         />
-        <Button className="btn " id="delete-btn" type="submit" variant="contained" color="error" >
+        <Button
+          className="btn "
+          id="delete-btn"
+          type="submit"
+          variant="contained"
+          color="error"
+        >
           Delete
         </Button>
       </form>
@@ -62,11 +73,13 @@ const handleSubmit = (e) =>{
 DeleteBootcamp.propTypes = {
   bootcamp: PropTypes.object.isRequired,
   getBootcampById: PropTypes.func.isRequired,
-  deleteBootcamp: PropTypes.func.isRequired
+  deleteBootcamp: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   bootcamp: state.bootcamp,
 });
 
-export default connect(mapStateToProps, { getBootcampById, deleteBootcamp })(DeleteBootcamp);
+export default connect(mapStateToProps, { getBootcampById, deleteBootcamp })(
+  DeleteBootcamp
+);
