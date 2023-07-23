@@ -16,10 +16,7 @@ import PropTypes from "prop-types";
 import { logout } from "../actions/auth";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
-function ResponsiveAppBar({
-  auth: { isAuthenticated, user },
-  logout,
-}) {
+function ResponsiveAppBar({ auth: { isAuthenticated, user }, logout }) {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -39,7 +36,7 @@ function ResponsiveAppBar({
     setAnchorElUser(null);
   };
 
-  return  (
+  return (
     <AppBar position="static" sx={{ backgroundColor: "#0b0b16" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -207,12 +204,19 @@ function ResponsiveAppBar({
                     color: "black",
                   }}
                 >
-                  <Typography sx={{cursor:'default'}}><b>{user?.data?.name}</b></Typography>
+                  <Typography sx={{ cursor: "default" }}>
+                    <b>{user?.data?.name}</b>
+                  </Typography>
                   <Typography
-                  onClick={() => navigate('profile')}
+                    onClick={() => navigate(`/user/${user?.data?._id}`)}
                   >
                     Profile
                   </Typography>
+                  {user?.data?.role === "admin" && (
+                    <Typography onClick={() => navigate(`/users-settings`)}>
+                      Users Settings
+                    </Typography>
+                  )}
                   <Typography onClick={logout}>Logout</Typography>
                 </MenuItem>
               </Menu>

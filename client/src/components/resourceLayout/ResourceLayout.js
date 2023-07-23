@@ -21,8 +21,13 @@ const ResourceLayout = ({
     const { id } = e.target;
     return navigate(`/bootcamp/${id}`);
   };
-  const { role } = user.data;
-  return bootcamps === null && !loading ? (
+  let role = ''
+  useEffect(()=>{
+
+    role = user?.data?.role;
+    
+  }, [user])
+  return bootcamps === null && loading ? (
     <div className="loading">
       <LoadingLayout />
     </div>

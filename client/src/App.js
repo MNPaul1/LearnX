@@ -21,7 +21,10 @@ import BootcampSettings from "./components/bootcampLayout/BootcampSettings";
 import CourseSettings from "./components/courseLayout/CourseSettings";
 import AllReviews from "./components/reviews/AllReviews";
 import UpdateReview from "./components/reviews/UpdateReview";
-import Profile from "./components/Profile/Profile";
+import ProfileLayout from "./components/Profile/ProfileLayout";
+import UserSettings from "./components/Profile/UserSettings";
+import UsersSettings from "./components/Profile/UsersSettings";
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -48,7 +51,9 @@ const App = () => {
           <Route path="/course-settings/:id" element={<PrivateRoute component={CourseSettings} />} />
           <Route path="/reviews" element={<PrivateRoute component={AllReviews} />} />
           <Route path="/review/:id" element={<PrivateRoute component={UpdateReview} />} />
-          <Route path="/profile" element={<PrivateRoute component={Profile} />} />
+          <Route path="/user/:id" element={<PrivateRoute component={ProfileLayout} />} />
+          <Route path="/user-settings/:id" element={<PrivateRoute component={UserSettings} />} />
+          <Route path="/users-settings" element={<PrivateRoute component={UsersSettings} />} />
         </Routes>
         <Footer />
       </Router>

@@ -4,15 +4,16 @@ import UpdateBootcamp from './UpdateBootcamp'
 import DeleteBootcamp from './DeleteBootcamp'
 import UploadPhoto from './UploadPhoto'
 import AddCourse from '../courseLayout/AddCourse'
+import { Button } from '@mui/material'
 function BootcampSettings() {
   const [currentContent, setContent] = useState("updateBootcamp")
   return (
     <div className='bootcamp-settings'>
       <div className="sidebar">
-        <button onClick={()=> setContent("updateBootcamp")}>Update Bootcamp</button>
-        <button onClick={()=> setContent("addCourse")}>Add Course</button>
-        <button onClick={() => setContent("uploadPhoto")}>Upload Photo</button>
-        <button onClick={() => setContent("deleteBootcamp")}>Delete Bootcamp</button>
+        <Button className="btn" variant="outlined" onClick={()=> setContent("updateBootcamp")}>Update Bootcamp</Button>
+        <Button className="btn" variant="outlined" onClick={()=> setContent("addCourse")}>Add Course</Button>
+        <Button className="btn" variant="outlined" onClick={() => setContent("uploadPhoto")}>Upload Photo</Button>
+        <Button className="btn" variant="outlined" onClick={() => setContent("deleteBootcamp")}>Delete Bootcamp</Button>
       </div>
       <div className="content-container">
         {currentContent==="updateBootcamp" && <UpdateBootcamp />}

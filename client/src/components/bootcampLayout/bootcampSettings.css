@@ -19,7 +19,7 @@
 .sidebar *{
     height: 40px;
     border-radius: 8px;
-    background-color: var(--background-color);
+    /* background-color: var(--background-color); */
 }
 .content-container{
     width: 80%;

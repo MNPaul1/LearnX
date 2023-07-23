@@ -52,6 +52,7 @@ export const register =
         type: REGISTER_SUCCESS,
         payload: res.data,
       });
+      dispatch(setAlert("User Created Successfully", "success"))
       dispatch(loadUser());
     } catch (error) {
       let errors = error.response.data.error;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import UpdateCourse from "./UpdateCourse";
 import DeleteCourse from "./DeleteCourse";
+import { Button } from "@mui/material";
 
 function CourseSettings() {
   document.title = "LearnX - Update Course";
@@ -8,12 +9,12 @@ function CourseSettings() {
   return (
     <div className="bootcamp-settings">
       <div className="sidebar">
-        <button onClick={() => setContent("updateCourse")}>
+        <Button className="btn" variant="outlined" onClick={() => setContent("updateCourse")}>
           Update Course
-        </button>
-        <button onClick={() => setContent("deleteCourse")}>
+        </Button>
+        <Button className="btn" variant="outlined" onClick={() => setContent("deleteCourse")}>
           Delete Course
-        </button>
+        </Button>
       </div>
       <div className="content-container">
         {currentContent === "updateCourse" && <UpdateCourse />}

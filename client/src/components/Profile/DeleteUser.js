@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { deleteUser } from "../../actions/user";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getUserById } from "../../actions/user";
-export const DeleteUser = ({
-  deleteUser,
-  getUserById,
-  user: { user },
-}) => {
+import { TextField, Button } from "@mui/material";
+
+export const DeleteUser = ({ deleteUser, getUserById, user: { user, loading } }) => {
   const { id } = useParams();
-  const [formData, setFormData] = useEffect({
+  document.title = "LearnX - Delete User";
+  const navigate = useNavigate()
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     role: "",
@@ -18,19 +18,22 @@ export const DeleteUser = ({
   const { name, email, role } = formData;
   useEffect(() => {
     getUserById(id);
-  });
+  }, [getUserById, id]);
+
   useEffect(() => {
-    setFormData({
-      name: user?.data?.name,
-      email: user?.data?.email,
-      role: user?.data?.role,
-    });
-  }, [user]);
+    if (user !== null && !loading) {
+      setFormData({
+        name: user?.data?.name,
+        email: user?.data?.email,
+        role: user?.data?.role,
+      });
+    }
+  }, [user, loading]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     deleteUser(id);
-    // navigate('/bootcamps')
+    navigate('/users-settings')
   };
   return (
     <div className="outer-container">
@@ -40,7 +43,7 @@ export const DeleteUser = ({
           id="filled-read-only-input"
           label="Name"
           variant="filled"
-          defaultValue={name}
+          value={name}
           InputProps={{
             readOnly: true,
           }}
@@ -49,16 +52,7 @@ export const DeleteUser = ({
           id="filled-read-only-input"
           label="Email"
           variant="filled"
-          defaultValue={email}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        <TextField
-          id="filled-read-only-input"
-          label="Title"
-          variant="filled"
-          defaultValue={current_course.data.title}
+          value={email}
           InputProps={{
             readOnly: true,
           }}
@@ -67,7 +61,7 @@ export const DeleteUser = ({
           id="filled-read-only-input"
           label="Role"
           variant="filled"
-          defaultValue={role}
+          value={role}
           InputProps={{
             readOnly: true,
           }}
@@ -81,13 +75,12 @@ export const DeleteUser = ({
 };
 
 DeleteUser.propTypes = {
-  auth: PropTypes.object.isRequired,
   deleteUser: PropTypes.func.isRequired,
   getUserById: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  user: state.user
 });
 
 export default connect(mapStateToProps, { deleteUser, getUserById })(

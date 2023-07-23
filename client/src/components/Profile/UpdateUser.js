@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { TextField, Button } from "@mui/material";
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import { updateUser } from "../../actions/auth";
-
-const UpdateUser = ({ auth:{loading, user}, updateUser }) => {
+import { getUserById } from "../../actions/user";
+import { updateUserByAdmin } from "../../actions/user";
+const UpdateUser = ({ auth:{user:logged_user}, updateUser, getUserById, user: {user, loading}, updateUserByAdmin }) => {
   const navigate = useNavigate()
+  const {id} = useParams()
   const [userData, setUserData] = useState({
     name:'',
     email:'',
   })
-  useState(()=>{
-    if(!loading){
-      setUserData({name: user.data?.name, email: user.data?.email})
+  useEffect(()=>{
+    getUserById(id)
+  },[getUserById, id])
+
+  useEffect(()=>{
+    if(user!==null && !loading){
+      setUserData({name: user?.data?.name, email: user?.data?.email})
     }
   }, [loading, user])
 
@@ -24,7 +30,7 @@ const UpdateUser = ({ auth:{loading, user}, updateUser }) => {
   const {name, email} = userData
   const handleSubmit = (e) =>{
     e.preventDefault();
-    updateUser(userData);
+    logged_user?.data?.role==='admin'?updateUserByAdmin(id, userData):updateUser(userData);
     window.location.reload()
     navigate('/bootcamps')
   }
@@ -66,6 +72,7 @@ UpdateUser.propTypes = {
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  user: state.user
 });
 
-export default connect(mapStateToProps, {updateUser})(UpdateUser);
+export default connect(mapStateToProps, {updateUser, getUserById, updateUserByAdmin})(UpdateUser);

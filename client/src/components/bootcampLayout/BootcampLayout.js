@@ -32,45 +32,46 @@ const BootcampLayout = ({
   const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
-    getBootcampById(id);
+    getUsers();
     getCoursesByBootcamp(id);
     getReviews(id);
-    getUsers();
+    getBootcampById(id);
   }, [getBootcampById, id, getUsers, getCoursesByBootcamp, getReviews]);
 
-  useEffect(()=>{
-    document.title = `LearnX - ${bootcamp?.data?.name}`
-  },[bootcamp])
+  useEffect(() => {
+    document.title = `LearnX - ${bootcamp?.data?.name}`;
+  }, [bootcamp]);
   const getUsername = (id) => {
-    if (users?.data !== null && !loading) {
+    if (!loading) {
       const value = users.data?.filter((user) => user._id === id);
-      return value[0]?.name;
+      if (value) {
+        
+        return value[0]?.name;
+      }
     }
   };
   const [reviewFormData, setFormData] = useState({
-    title:'',
-    rating:null,
-    text:'',
-  })
-  const {title, rating, text} = reviewFormData;
+    title: "",
+    rating: null,
+    text: "",
+  });
+  const { title, rating, text } = reviewFormData;
   const handleReviewSubmit = (e) => {
     e.preventDefault();
     addReview(id, reviewFormData);
     navigate("/bootcamps");
-  }
-  const handleReviewDataChange = (e) =>{
-    let {name, value} = e.target;
+  };
+  const handleReviewDataChange = (e) => {
+    let { name, value } = e.target;
     if (name === "rating") {
       value = (parseFloat(value) * 10) / 5;
     }
-    setFormData({...reviewFormData, [name]: value})
-  }
+    setFormData({ ...reviewFormData, [name]: value });
+  };
 
   const skillLevels = { beginner: "20", intermediate: "50", advanced: "70" };
   const RenderComponent = (Component, value, ...rest) => {
-    return bootcamp == null ? (
-      <LoadingLayout />
-    ) : (
+    return (
       <Box sx={{ display: "flex", flexDirection: "row" }}>
         <Component size="small" sx={{ mr: 1 }} />
         <Box
@@ -333,5 +334,5 @@ export default connect(mapStateToProps, {
   getCoursesByBootcamp,
   getReviews,
   getUsers,
-  addReview
+  addReview,
 })(BootcampLayout);

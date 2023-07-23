@@ -1,4 +1,11 @@
-import { GET_USER, GET_USERS, USER_DELETED, USER_ERROR, CLEAR_USER } from "../actions/types";
+import {
+  GET_USER,
+  GET_USERS,
+  USER_DELETED,
+  USER_ERROR,
+  CLEAR_USER,
+  USER_CREATED,
+} from "../actions/types";
 
 const initialState = {
   users: {},
@@ -15,18 +22,18 @@ export default function user(state = initialState, action) {
         users: payload,
         loading: false,
       };
-      case GET_USER:
-        return {
-          ...state,
-          user: payload,
-          loading: false
-        }
-        case CLEAR_USER:
-          return {
-            ...state,
-            user: null,
-            loading: false
-          }
+    case GET_USER:
+      return {
+        ...state,
+        user: payload,
+        loading: false,
+      };
+    case CLEAR_USER:
+      return {
+        ...state,
+        user: null,
+        loading: false,
+      };
     case USER_ERROR:
       return {
         ...state,
@@ -34,6 +41,7 @@ export default function user(state = initialState, action) {
         loading: false,
       };
     case USER_DELETED:
+    case USER_CREATED:
       return {
         state,
       };
