@@ -69,7 +69,7 @@
 }
 .bootcamps-container .bootcamp{
     position: relative;
-    flex-grow: 1;
+    flex: 1;
     max-width: 33.3%;
     height: fit-content;
     border-radius: 5px;
@@ -173,7 +173,7 @@
     }
     .bootcamps-container .bootcamp{
         max-width: 100%;
-        /* min-width: 100%; */
+        min-width: 100%;
     }
     .benefits-container{
         padding: 10px;

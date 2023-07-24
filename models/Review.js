@@ -69,7 +69,7 @@ ReviewSchema.post('save',function(){
 })
 
 //Call averageRating before remove
-ReviewSchema.pre('remove',function(){
+ReviewSchema.post('remove',function(){
     this.constructor.getAverageRating(this.bootcamp)
 })
 

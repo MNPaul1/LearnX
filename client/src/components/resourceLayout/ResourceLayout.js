@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getBootcamps } from "../../actions/bootcamp";
@@ -21,20 +21,24 @@ const ResourceLayout = ({
     const { id } = e.target;
     return navigate(`/bootcamp/${id}`);
   };
-  let role = ''
+  let [userData, setUserData] = useState({
+    role: '',
+    id: ''
+  })
+  const {role, id} = userData
   useEffect(()=>{
-
-    role = user?.data?.role;
-    
+    setUserData({role: user?.data?.role, id: user?.data?._id})    
   }, [user])
+  console.log(userData)
   return bootcamps === null && loading ? (
     <div className="loading">
       <LoadingLayout />
     </div>
   ) : (
     <div className="section">
+
       {bootcamps.data?.map((bootcamp) => {
-        if (bootcamp.courses.length === 0 && role !== "admin") {
+        if (bootcamp.courses.length === 0 && role !== "admin" && id!==bootcamp.user) {
           return null;
         } else {
           return (
@@ -84,6 +88,7 @@ const ResourceLayout = ({
           );
         }
       })}
+      <p >Note: If a bootcamp does not have at least one course, it will not be Listed. Only the Admin and the Bootcamp Owner will be able to see this.</p>
     </div>
   );
 };
