@@ -68,7 +68,7 @@ const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading }, getUsers }) =
         </h1>
         <img
           className="title-img"
-          src="https://freepngimg.com/thumb/school/32760-6-students-learning-transparent.png"
+          src="/landing_img.png"
           alt=""
         />
       </div>
