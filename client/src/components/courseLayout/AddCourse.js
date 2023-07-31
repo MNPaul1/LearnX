@@ -48,7 +48,7 @@ export const AddCourse = ({ addCourse }) => {
   return (
     <div className="outer-container">
       <form className="container" onSubmit={handleSubmit} style={{alignItems: "flex-start"}}>
-        <h1 style={{ textAlign: "center" }}>ADD COURSE</h1>
+        <h1 id="heading">ADD COURSE</h1>
         <TextField
           type="name"
           name="title"

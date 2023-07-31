@@ -25,7 +25,7 @@ const handleSubmit = (e) =>{
   ) : (
     <div className="outer-container">
       <form className="container" onSubmit={handleSubmit}>
-        <h1 style={{ textAlign: "center" }}>DELETE COURSE</h1>
+        <h1 id="heading">DELETE COURSE</h1>
         <TextField
           id="filled-read-only-input"
           label="Title"

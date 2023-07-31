@@ -28,7 +28,7 @@ export const DeleteBootcamp = ({
   ) : (
     <div className="outer-container">
       <form className="container" onSubmit={handleSubmit}>
-        <h1 style={{ textAlign: "center" }}>DELETE BOOTCAMP</h1>
+        <h1 id="heading">DELETE BOOTCAMP</h1>
         <TextField
           id="filled-read-only-input"
           label="Name"

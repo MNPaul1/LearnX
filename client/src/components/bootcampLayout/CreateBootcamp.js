@@ -85,7 +85,7 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
         className="container createbootcamp-container"
         onSubmit={handleSubmit}
       >
-        <h1 style={{ textAlign: "center" }}>ADD BOOTCAMP</h1>
+        <h1 id="heading">ADD BOOTCAMP</h1>
         <TextField
           type="name"
           name="name"

@@ -64,7 +64,7 @@ export const UpdateCourse = ({ getCourseById, course: { current_course }, update
         className="container createbootcamp-container"
         onSubmit={handleSubmit}
       >
-        <h1 style={{ textAlign: "center" }}>UPDATE COURSE</h1>
+        <h1 id="heading">UPDATE COURSE</h1>
         <TextField
           type="name"
           name="title"

@@ -17,11 +17,15 @@
     width: 50%;
     padding: 15px;
     height: 270px;
-    box-shadow: 2px 2px 8px rgb(115, 114, 114);
-    background-color: rgb(237, 237, 237);
+    box-shadow: 2px 2px 8px var(--container-bg-color);
+    background-color: var(--container-bg-color);
     column-gap: 20px;
     display: flex;
     flex-direction: row;
+}
+.resource-container:hover{
+    box-shadow: 2px 2px 8px wheat;
+    transition: box-shadow 0.8s ease-in-out;
 }
 .click{
     height: 100%;
@@ -44,7 +48,8 @@
 }
 
 .careers{
-    color: #0000007d;
+    color: var(--color);
+    opacity: .5;
 }
 .bootcamp-name{
     width: 50%;

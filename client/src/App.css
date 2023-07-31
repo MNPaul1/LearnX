@@ -1,9 +1,9 @@
 *{
   margin: 0;
   padding: 0;
-  --background-color: #e7dfdd;
-  --container-bg-color:rgb(237, 237, 237);
-  --color:#0b0b16;
+  --background-color: rgb(21, 21, 21);
+  --container-bg-color:#30303050;
+  --color:#e7dfdd;
 }
 
 body{

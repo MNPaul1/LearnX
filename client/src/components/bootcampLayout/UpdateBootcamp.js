@@ -96,7 +96,7 @@ const UpdateBootcamp = ({
         className="container createbootcamp-container"
         onSubmit={handleSubmit}
       >
-        <h1 style={{ textAlign: "center" }}>UPDATE BOOTCAMP</h1>
+        <h1 id="heading">UPDATE BOOTCAMP</h1>
         <TextField
           type="name"
           name="name"

@@ -8,8 +8,7 @@
 .bootcamp-section-header {
   padding: 30px;
   border-radius: 15px;
-  background-color: var(--color);
-  color: var(--background-color);
+  background-color: var(--container-bg-color);
   display: flex;
   flex-direction: row-reverse;
   row-gap: 1ch;
@@ -55,40 +54,41 @@
 .course-container * {
   flex-grow: 1;
 }
-.course-container h1{
+.course-container h1 {
   text-transform: uppercase;
   font-weight: bolder;
 }
-.skill-bar{
-    position: relative;
-    width: 100%;
-    min-height: 20px;
-    max-height: 20px;
-    height: 20px;
-    border-radius: 10px;
-    background-color: var(--background-color);
+.skill-bar {
+  position: relative;
+  width: 100%;
+  min-height: 20px;
+  max-height: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: var(--background-color);
 }
-.required-skill-bar{
-    position: absolute;
-    height: inherit;
-    font-size: small;
-    font-weight: bolder;
-    text-align: center;
-    background-image: linear-gradient(0.25turn, #1b6585, #ebf8e1, #dd8a32);
-    border-radius: inherit;
+.required-skill-bar {
+  position: absolute;
+  height: inherit;
+  font-size: small;
+  font-weight: bolder;
+  text-align: center;
+  background-image: linear-gradient(0.25turn, #1b6585, #ebf8e1, #dd8a32);
+  border-radius: inherit;
 }
-.bootcamp-opportunity-container{
+.bootcamp-opportunity-container {
   flex-direction: row;
   row-gap: 10px;
   font-size: larger;
   column-gap: 10px;
   box-sizing: border-box;
 }
-.bootcamp-opportunity-container *{
+.bootcamp-opportunity-container * {
   width: fit-content;
   min-width: 0px;
 }
-.left-container, .right-container{
+.left-container,
+.right-container {
   flex: 1 1 50%;
   height: inherit;
   text-align: center;
@@ -96,29 +96,28 @@
   flex-direction: column;
 }
 
-.left-container nav{
+.left-container nav {
   padding-bottom: 1px;
   border-radius: 0;
-  border-bottom: 2px solid var(--background-color);
+  border-bottom: 2px solid var(--color);
   border-bottom-width: 2px;
   width: fit-content;
 }
-.review-container{
+.review-container {
   width: 40%;
   display: flex;
   flex-direction: column;
   row-gap: 20px;
 }
-.review-container .review{
+.review-container .review {
   padding: 20px;
   border-radius: 15px;
-  box-shadow: 1px 1px 1px var(--color);
   display: inherit;
   flex-direction: column;
   row-gap: 5px;
   background-color: var(--container-bg-color);
 }
-.contained-container{
+.contained-container {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -135,19 +134,19 @@
     min-width: 100%;
     max-width: 100%;
   }
-  .course-container h1{
+  .course-container h1 {
     font-size: large;
   }
-  #course-description{
+  #course-description {
     display: block;
   }
-  .bootcamp-opportunity-container{
+  .bootcamp-opportunity-container {
     flex-direction: column;
   }
-  .review-container{
+  .review-container {
     width: 100%;
   }
-  .contained-container{
+  .contained-container {
     position: relative;
   }
 }
@@ -159,10 +158,10 @@
     min-width: 49%;
     max-width: 50%;
   }
-  .course-container h1{
+  .course-container h1 {
     font-size: medium;
   }
-  .review-container{
+  .review-container {
     width: 60%;
   }
 }

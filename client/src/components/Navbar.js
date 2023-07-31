@@ -37,7 +37,7 @@ function ResponsiveAppBar({ auth: { isAuthenticated, user }, logout }) {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#0b0b16" }}>
+    <AppBar position="static" sx={{ backgroundColor: "#111" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Avatar

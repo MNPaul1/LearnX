@@ -14,12 +14,11 @@
     padding: 15px;
     box-sizing: border-box;
     height: 40vh;
-    background-color: var(--color);
+    background-color: var(--container-bg-color);
 }
 .sidebar *{
     height: 40px;
     border-radius: 8px;
-    /* background-color: var(--background-color); */
 }
 .content-container{
     width: 80%;

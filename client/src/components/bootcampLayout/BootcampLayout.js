@@ -172,7 +172,7 @@ const BootcampLayout = ({
       </div>
       <br />
       <div className="bootcamp-courses">
-        <h1>COURSES</h1>
+        <h1 id="heading-underline">COURSES</h1>
         <br />
         <div className="courses-section center-element">
           {courses.data?.map((course) => (
@@ -207,9 +207,9 @@ const BootcampLayout = ({
         </div>
       </div>
       <br />
-      <h1>CAREER OPPORTUNITY</h1>
+      <h1 id="heading-underline">CAREER OPPORTUNITY</h1>
       <br />
-      <div className="bootcamp-opportunity-container container">
+      <div className="bootcamp-opportunity-container container" id="purple-green-bg">
         <div className="left-container center-element">
           {bootcamp.data.careers.map((career, key) => (
             <nav key={key}>{career}</nav>
@@ -225,8 +225,9 @@ const BootcampLayout = ({
         </div>
       </div>
       <br />
-      <h1>Feedback</h1>
-      <form className="container" onSubmit={handleReviewSubmit}>
+      <h1 id="heading-underline">FEEDBACK</h1>
+      <br />
+      <form className="container" onSubmit={handleReviewSubmit} >
         <TextField
           type="text"
           id="filled-basic"
@@ -265,8 +266,8 @@ const BootcampLayout = ({
         </Button>
       </form>
       <br />
-
-      <h1>Reviews</h1>
+      <h1 id="heading-underline">Reviews</h1>
+      <br />
       <div className="review-container">
         {reviews.data?.map(
           (review, id) =>

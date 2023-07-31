@@ -28,7 +28,9 @@ function CourseLayout({
   const getUsername = (id) => {
     if(users?.data!==null && !loading){
       const value = users.data?.filter((user) => user._id === id);
-      return value[0]?.name;
+      if (value){
+        return value[0]?.name;
+      }
     }
   };
   const handleSettingClick = () => {
@@ -78,6 +80,7 @@ function CourseLayout({
         <h3>Tuition: CA${current_course.data.tuition}</h3>
         <div
           className="course-container contained-container"
+          id="purple-green-bg"
           onClick={() =>
             navigate(`/bootcamp/${current_course.data.bootcamp._id}`)
           }

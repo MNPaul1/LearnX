@@ -36,7 +36,7 @@ return bootcamp === null ? (
     <div className="outer-container">
     <form className="container" style={{alignItems: 'flex-start'}} onSubmit={handleSubmit}>
 
-      <h1 style={{ textAlign: "center" }}>UPLOAD PHOTO</h1>
+      <h1 id="heading">UPLOAD PHOTO</h1>
       <TextField
         id="filled-read-only-input"
         label="Name"

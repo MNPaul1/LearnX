@@ -4,16 +4,22 @@ import CardMedia from "@mui/material/CardMedia";
 import { connect } from "react-redux";
 import { getBootcamps } from "../../actions/bootcamp";
 import PropTypes from "prop-types";
-import { Rating } from "@mui/material";
+import { Rating, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getUsers } from "../../actions/user";
 import LoadingLayout from "./loadingLayout";
-const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading }, getUsers }) => {
+import '../../utils/design.css'
+
+const Landing = ({
+  getBootcamps,
+  bootcamp: { bootcamps, loading },
+  getUsers,
+}) => {
   useEffect(() => {
-    document.title = "LearnX - Home"
+    document.title = "LearnX - Home";
 
     getBootcamps();
-    getUsers()
+    getUsers();
   }, [getBootcamps, getUsers]);
   const navigate = useNavigate();
   const bootcampsBenefits = [
@@ -52,67 +58,62 @@ const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading }, getUsers }) =
     </div>
   ) : (
     <Fragment>
-      <div className="center-element box header">
-        <h1 className="main-heading">
-          Unlock Your{" "}
-          <nav id="custom-text-decoration" style={{ backgroundColor: "red" }}>
-            Learning Potential
-          </nav>
-          : Redefine Your Skills and Fuel Success with{" "}
-          <nav
-            id="custom-text-decoration"
-            style={{ backgroundColor: "yellow" }}
-          >
-            Dynamic Bootcamps!
-          </nav>
-        </h1>
-        <img
-          className="title-img"
-          src="/landing_img.png"
-          alt=""
-        />
+      <div className="header">
+      <img src="/logo_transparent.png" alt="" className='landing_img' width={200} />
+        <h1>LearnX</h1>
+        <p>
+          Unlock Your Learning Potential : Redefine Your Skills and Fuel Success
+          with Dynamic Bootcamps!
+        </p>
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <h1 className="label">Explore Top Bootcamps</h1>
-      <div className="bootcamps-container box center-element">
-        {bootcamps.data?.map((bootcamp, key) => (
-          key<4 && <div
-            className="bootcamp"
-            id={bootcamp.id}
-            onClick={handleClick}
-            key={bootcamp.id}
-          >
-            <div className="click" id={bootcamp.id} />
-            <CardMedia
-              sx={{ height: "300px", width: "100%" }}
-              image={`/uploads/${bootcamp.photo}`}
-              title={bootcamp.name}
-            />
-            <div className="card-content">
-              <h2>{bootcamp.name}</h2>
-              <nav className="cost-rating-conatiner center-element">
-                <span>CA${bootcamp.averageCost}</span>
-                <Rating
-                  name="half-rating-read"
-                  defaultValue={(bootcamp.averageRating * 5) / 10}
-                  precision={0.5}
-                  size="small"
-                  readOnly
+      <h1 className="label" id="heading-underline">Explore Top Bootcamps</h1>
+      <div className="bootcamps-container box center-element" id="red-blue-yellow-bg">
+        {bootcamps.data?.map(
+          (bootcamp, key) =>
+            key < 4 && (
+              <div
+                className="bootcamp"
+                id={bootcamp.id}
+                onClick={handleClick}
+                key={bootcamp.id}
+              >
+                <div className="click" id={bootcamp.id} />
+                <CardMedia
+                  sx={{ height: "300px", width: "100%" }}
+                  image={`/uploads/${bootcamp.photo}`}
+                  title={bootcamp.name}
                 />
-              </nav>
-            </div>
-          </div>
-        ))}
+                <div className="card-content">
+                  <h2>{bootcamp.name}</h2>
+                  <nav className="cost-rating-conatiner center-element">
+                    <span>CA${bootcamp.averageCost}</span>
+                    <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {parseFloat(((bootcamp.averageRating * 5) / 10).toFixed(2))}
+                    <Rating
+                      name="half-rating-read"
+                      defaultValue={(bootcamp.averageRating * 5) / 10}
+                      precision={0.5}
+                      size="small"
+                      readOnly
+                    />
+                    </Box>
+                  </nav>
+                </div>
+              </div>
+            )
+        )}
       </div>
       <br />
       <br />
       <br />
       <br />
-      <h1 className="label">Benefits of Bootcamps</h1>
-      <div className="box benefits-container">
+      <h1 className="label" id="heading-underline">Benefits of Bootcamps</h1>
+      <div className="box benefits-container" id="purple-green-bg">
         {bootcampsBenefits.map((item, key) => (
           <div key={key} className="item">
             <h2>{Object.keys(item)}</h2>
@@ -121,7 +122,6 @@ const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading }, getUsers }) =
           </div>
         ))}
       </div>
-
     </Fragment>
   );
 };
@@ -129,12 +129,12 @@ const Landing = ({ getBootcamps, bootcamp: { bootcamps, loading }, getUsers }) =
 Landing.propTypes = {
   getBootcamps: PropTypes.func.isRequired,
   bootcamp: PropTypes.object.isRequired,
-  getUsers: PropTypes.func.isRequired
+  getUsers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   bootcamp: state.bootcamp,
-  user: state.user
+  user: state.user,
 });
 
 export default connect(mapStateToProps, { getBootcamps, getUsers })(Landing);
