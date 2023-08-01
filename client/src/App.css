@@ -2,8 +2,11 @@
   margin: 0;
   padding: 0;
   --background-color: rgb(21, 21, 21);
+  /* --background-color: rgb(234, 234, 234); */
   --container-bg-color:#30303050;
+  /* --container-bg-color:#c0c0c050; */
   --color:#e7dfdd;
+  /* --color: black; */
 }
 
 body{

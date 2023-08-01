@@ -1,7 +1,7 @@
 #purple-green-bg {
   background-image: linear-gradient(
       130deg,
-      rgb(154, 59, 227, 0.5),
+      rgba(154, 59, 227, 0.5),
       rgba(255, 210, 46, 0) 35.71%
     ),
     linear-gradient(
@@ -47,6 +47,28 @@
   );
 }
 
+#orange-blue-bg{
+  background-image: linear-gradient(
+    130deg,
+    rgba(255, 148, 41,0.5),
+    rgba(255, 210, 46, 0) 35.71%
+  ),
+  linear-gradient(
+    320deg,
+    rgba(28, 85, 232, 0.8),
+    rgba(154, 59, 227, 0) 35.71%
+  );
+border: 5px solid;
+border-image-slice: 1;
+border-image-source: linear-gradient(
+  to left,
+  rgba(28, 85, 232, 0.8),
+  rgba(255, 210, 46, 0) 30.71%,
+  rgba(255, 148, 41,0.5)
+);
+border-radius: 10px;
+}
+
 #heading-underline {
   width: max-content;
   text-transform: uppercase;
@@ -54,4 +76,25 @@
   border-image-slice: 1;
   border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
   padding-bottom: 3px;
+  background-image: radial-gradient(
+    50% 50% at 50% 50%,
+    rgb(120, 120, 120) 0%,
+    rgba(56, 56, 56, 0.6) 100%
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#heading-color{
+  background-image: radial-gradient(
+    50% 50% at 50% 50%,
+    rgb(120, 120, 120) 0%,
+    rgba(56, 56, 56, 0.6) 100%
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@media screen and (max-width: 600px) {
+  #heading-underline{
+    font-size: large;
+  }
 }

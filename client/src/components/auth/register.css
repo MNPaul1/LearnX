@@ -55,7 +55,13 @@ select:-webkit-autofill:focus {
 
 #heading {
   text-align: center;
-  color: var(--color);
+  background-image: radial-gradient(
+    50% 50% at 50% 50%,
+    rgb(120, 120, 120) 10%,
+    rgba(56, 56, 56, 0.8) 90%
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-transform: uppercase;
 }
 .container * {

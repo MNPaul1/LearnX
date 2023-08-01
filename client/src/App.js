@@ -42,18 +42,48 @@ const App = () => {
           <Route path="/" element={<Landing />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
-          <Route path="bootcamps" element={<PrivateRoute component={ResourceLayout} />} />
-          <Route path="courses" element={<PrivateRoute component={CoursesLayout} />} />
-          <Route path="course/:id" element={<PrivateRoute component={CourseLayout} />} />
-          <Route path="bootcamp/:id" element={<PrivateRoute component={BootcampLayout} />} />
-          <Route path="add-bootcamp" element={<PrivateRoute component={CreateBootcamp} />} />
-          <Route path="bootcamp-settings/:id" element={<PrivateRoute component={BootcampSettings} />} />
-          <Route path="/course-settings/:id" element={<PrivateRoute component={CourseSettings} />} />
-          <Route path="/reviews" element={<PrivateRoute component={AllReviews} />} />
-          <Route path="/review/:id" element={<PrivateRoute component={UpdateReview} />} />
-          <Route path="/user/:id" element={<PrivateRoute component={ProfileLayout} />} />
-          <Route path="/user-settings/:id" element={<PrivateRoute component={UserSettings} />} />
-          <Route path="/users-settings" element={<PrivateRoute component={UsersSettings} />} />
+          <Route path="bootcamps" element={<ResourceLayout />} />
+          <Route path="courses" element={<CoursesLayout />} />
+          <Route
+            path="course/:id"
+            element={<PrivateRoute component={CourseLayout} />}
+          />
+          <Route
+            path="bootcamp/:id"
+            element={<PrivateRoute component={BootcampLayout} />}
+          />
+          <Route
+            path="add-bootcamp"
+            element={<PrivateRoute component={CreateBootcamp} />}
+          />
+          <Route
+            path="bootcamp-settings/:id"
+            element={<PrivateRoute component={BootcampSettings} />}
+          />
+          <Route
+            path="/course-settings/:id"
+            element={<PrivateRoute component={CourseSettings} />}
+          />
+          <Route
+            path="/reviews"
+            element={<PrivateRoute component={AllReviews} />}
+          />
+          <Route
+            path="/review/:id"
+            element={<PrivateRoute component={UpdateReview} />}
+          />
+          <Route
+            path="/user/:id"
+            element={<PrivateRoute component={ProfileLayout} />}
+          />
+          <Route
+            path="/user-settings/:id"
+            element={<PrivateRoute component={UserSettings} />}
+          />
+          <Route
+            path="/users-settings"
+            element={<PrivateRoute component={UsersSettings} />}
+          />
         </Routes>
         <Footer />
       </Router>

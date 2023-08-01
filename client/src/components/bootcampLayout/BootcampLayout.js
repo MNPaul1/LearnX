@@ -45,7 +45,6 @@ const BootcampLayout = ({
     if (!loading) {
       const value = users.data?.filter((user) => user._id === id);
       if (value) {
-        
         return value[0]?.name;
       }
     }
@@ -95,7 +94,7 @@ const BootcampLayout = ({
     </div>
   ) : (
     <div className="bootcamp-section">
-      <div className="bootcamp-section-header">
+      <div className="bootcamp-section-header" id="purple-green-bg">
         <img
           src={`/uploads/${bootcamp.data?.photo}`}
           alt=""
@@ -183,7 +182,8 @@ const BootcampLayout = ({
             >
               <h1>{course.title}</h1>
               <p className="description" id="course-description">
-                {course.description}
+                {course.description.slice(0, 120)}
+                {+course.description.length > 120 ? "..." : "."}
               </p>
               <nav>
                 <b>Duration: {course.weeks} week(s)</b>
@@ -209,7 +209,10 @@ const BootcampLayout = ({
       <br />
       <h1 id="heading-underline">CAREER OPPORTUNITY</h1>
       <br />
-      <div className="bootcamp-opportunity-container container" id="purple-green-bg">
+      <div
+        className="bootcamp-opportunity-container container"
+        id="orange-blue-bg"
+      >
         <div className="left-container center-element">
           {bootcamp.data.careers.map((career, key) => (
             <nav key={key}>{career}</nav>
@@ -227,7 +230,7 @@ const BootcampLayout = ({
       <br />
       <h1 id="heading-underline">FEEDBACK</h1>
       <br />
-      <form className="container" onSubmit={handleReviewSubmit} >
+      <form className="container" onSubmit={handleReviewSubmit}>
         <TextField
           type="text"
           id="filled-basic"

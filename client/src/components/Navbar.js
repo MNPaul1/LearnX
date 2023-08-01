@@ -43,7 +43,7 @@ function ResponsiveAppBar({ auth: { isAuthenticated, user }, logout }) {
           <Avatar
             alt="logo"
             src="/logo_transparent.png"
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1, mt: 1 }}
+            sx={{ display: { xs: "none", md: "flex" } }}
           />
 
           <Typography
@@ -123,7 +123,7 @@ function ResponsiveAppBar({ auth: { isAuthenticated, user }, logout }) {
           <Avatar
             alt="logo"
             src="/logo_transparent.png"
-            sx={{ display: { xs: "flex", md: "none" }, mr: 1, mt: 1 }}
+            sx={{ display: { xs: "flex", md: "none" } }}
           />
           <Typography
             variant="h5"

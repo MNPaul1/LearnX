@@ -8,7 +8,7 @@ import { register } from "../../actions/auth";
 import PropTypes from 'prop-types'
 
 const Register = ({setAlert, register, isAuthenticated})=> {
-
+  document.title = "LearnX - Sign Up";
   const [formData, setFormData] = useState({
     name: "",
     email: "",

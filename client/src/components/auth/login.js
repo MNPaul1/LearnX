@@ -7,6 +7,7 @@ import { login } from "../../actions/auth";
 import { Link, Navigate } from "react-router-dom";
 
 const Login = ({ login, isAuthenticated }) => {
+  document.title = "LearnX - Sign In";
   const [formData, setFormData] = useState({
     email: "",
     password: "",
