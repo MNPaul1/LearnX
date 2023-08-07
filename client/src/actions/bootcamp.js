@@ -36,10 +36,14 @@ export const getBootcampById = (id) => async (dispatch) => {
 };
 
 //Get all Bootcamps
-export const getBootcamps = () => async (dispatch) => {
+export const getBootcamps = (page) => async (dispatch) => {
   dispatch({ type: CLEAR_BOOTCAMP });
   try {
-    const res = await axios.get(`/api/v1/bootcamps`);
+    let limit;
+    if (page) {
+      limit=4
+    }
+    const res = await axios.get(`/api/v1/bootcamps?limit=${limit}&page=${page}`);
     dispatch({
       type: GET_BOOTCAMPS,
       payload: res.data,
@@ -133,13 +137,9 @@ export const deleteBootcamp = (id) => async (dispatch) => {
 //Upload bootcamp Photo
 export const uploadPhoto = (id, photo) => async (dispatch) => {
   try {
-    const config = {
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-    };
-    console.log("photo ;", photo);
-    const res = await axios.put(`/api/v1/bootcamps/${id}/photo`, photo, config);
+    const formData = new FormData()
+    formData.append("file", photo)
+    const res = await axios.put(`/api/v1/bootcamps/${id}/photo`, formData);
     dispatch({
       type: PHOTO_UPLOADED,
       payload: res.data,

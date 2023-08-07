@@ -1,12 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCourses } from "../../actions/course";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import LoadingLayout from "../layout/loadingLayout";
+import { Pagination } from "@mui/material";
 
 const CoursesLayout = ({ getCourses, auth, course: { courses, loading } }) => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  let currentPage = Number(searchParams.get("page"));
+  const [totalPages, setPages] = useState(0);
   const skillLevels = { beginner: "20", intermediate: "50", advanced: "70" };
   const handleClick = (e) => {
     const {id} = e.target
@@ -14,14 +18,36 @@ const CoursesLayout = ({ getCourses, auth, course: { courses, loading } }) => {
   }
   useEffect(() => {
     document.title = "LearnX - All Courses"
-    getCourses();
-  }, [getCourses]);
-  return courses===null ? (
+    getCourses(currentPage);
+    
+  }, [getCourses, currentPage]);
+  useEffect(() => {
+    if (courses !== null && !loading) {
+      setPages(Math.ceil(courses?.total / 4));
+    }
+  }, [courses, loading]);
+  const handlePagination = (e, v) => {
+    setSearchParams({ page: v });
+  };
+  return courses===null && loading? (
     <div className="loading">
       <LoadingLayout />
     </div>
   ) : (
     <div className="section">
+          <Pagination
+        count={totalPages}
+        variant="outlined"
+        shape="rounded"
+        sx={{
+          "& .css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected":
+            {
+              backgroundColor: "rgba(255, 255, 255, 0.08)",
+            },
+        }}
+        page={currentPage}
+        onChange={handlePagination}
+      />
       {courses.data?.map((course) => (
         <div
           key={course._id}
@@ -49,6 +75,19 @@ const CoursesLayout = ({ getCourses, auth, course: { courses, loading } }) => {
           </div>
         </div>
       ))}
+      <Pagination
+        count={totalPages}
+        variant="outlined"
+        shape="rounded"
+        sx={{
+          "& .css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected":
+            {
+              backgroundColor: "rgba(255, 255, 255, 0.08)",
+            },
+        }}
+        page={currentPage}
+        onChange={handlePagination}
+      />
     </div>
   );
 };

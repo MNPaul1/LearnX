@@ -7,6 +7,19 @@
   margin: 5px 20px;
   overflow: hidden;
   cursor: pointer;
+  transition: 0.4s;
+}
+.user-container:hover{
+  border: 5px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(
+    to left,
+    rgba(154, 59, 227, 0.5),
+    rgba(255, 210, 46, 0) 20.71%,
+    rgb(154, 59, 227, 0.5)
+  );
+  border-radius: 10px;
+  transform: scale(1.02);
 }
 .comment{
     color: rgba(255, 255, 255, 0.341);

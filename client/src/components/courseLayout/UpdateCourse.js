@@ -18,7 +18,7 @@ export const UpdateCourse = ({ getCourseById, course: { current_course }, update
     weeks: "",
     tuition: "",
     minimumSkill: "",
-    scholarshipsAvailable: "",
+    ScholershipAvailable: "",
   });
   const {
     title,
@@ -26,7 +26,7 @@ export const UpdateCourse = ({ getCourseById, course: { current_course }, update
     weeks,
     tuition,
     minimumSkill,
-    scholarshipsAvailable,
+    ScholershipAvailable,
   } = formData;
   useEffect(() => {
     getCourseById(id);
@@ -40,7 +40,7 @@ export const UpdateCourse = ({ getCourseById, course: { current_course }, update
   const handleSubmit = async (e) => {
     e.preventDefault();
     updateCourse(id, formData)
-    navigate('/bootcamps')
+    navigate(`/course/${id}`)
   };
   const onChange = (e) => {
     let { name, value } = e.target;
@@ -150,9 +150,9 @@ export const UpdateCourse = ({ getCourseById, course: { current_course }, update
               id="true"
               type="radio"
               value={true}
-              name="scholarshipsAvailable"
+              name="ScholershipAvailable"
               onChange={onChange}
-              checked={scholarshipsAvailable === true}
+              checked={ScholershipAvailable === true}
             />
             Yes
           </label>
@@ -161,9 +161,9 @@ export const UpdateCourse = ({ getCourseById, course: { current_course }, update
               id="false"
               type="radio"
               value={false}
-              name="scholarshipsAvailable"
+              name="ScholershipAvailable"
               onChange={onChange}
-              checked={scholarshipsAvailable === false}
+              checked={ScholershipAvailable === false}
             />
             No
           </label>

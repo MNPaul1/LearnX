@@ -11,7 +11,7 @@ export const AddCourse = ({ addCourse }) => {
     weeks: "",
     tuition: "",
     minimumSkill: "",
-    scholarshipsAvailable: "",
+    ScholershipAvailable: "",
   });
   const {
     title,
@@ -19,7 +19,7 @@ export const AddCourse = ({ addCourse }) => {
     weeks,
     tuition,
     minimumSkill,
-    scholarshipsAvailable,
+    ScholershipAvailable,
   } = formData;
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export const AddCourse = ({ addCourse }) => {
     e.preventDefault();
     console.log(formData);
     addCourse(id, formData);
-    navigate(`/courses`);
+    navigate(`/bootcamp/${id}`);
   };
 
   const onChange = (e) => {
@@ -134,9 +134,9 @@ export const AddCourse = ({ addCourse }) => {
               id="true"
               type="radio"
               value={true}
-              name="scholarshipsAvailable"
+              name="ScholershipAvailable"
               onChange={onChange}
-              checked={scholarshipsAvailable === true}
+              checked={ScholershipAvailable === true}
             />
             Yes
           </label>
@@ -145,9 +145,9 @@ export const AddCourse = ({ addCourse }) => {
               id="false"
               type="radio"
               value={false}
-              name="scholarshipsAvailable"
+              name="ScholershipAvailable"
               onChange={onChange}
-              checked={scholarshipsAvailable === false}
+              checked={ScholershipAvailable === false}
             />
             No
           </label>

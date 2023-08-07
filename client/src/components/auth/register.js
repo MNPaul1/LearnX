@@ -34,7 +34,7 @@ const Register = ({setAlert, register, isAuthenticated})=> {
   }
 
   if(isAuthenticated){
-    return <Navigate to='/bootcamps' />
+    return <Navigate to={`/bootcamps?page=${1}`} />
   }
 
   return (

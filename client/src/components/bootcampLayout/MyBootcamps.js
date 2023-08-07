@@ -1,34 +1,32 @@
-import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getBootcamps } from "../../actions/bootcamp";
-import "./resourceLayout.css";
-import { Box, Rating } from "@mui/material";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import LoadingLayout from "../layout/loadingLayout";
-import Pagination from "@mui/material/Pagination";
-
-const ResourceLayout = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
+import { Rating, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+export const MyBootcamps = ({
+  getBootcamps,
+  bootcamp: { bootcamps, loading },
+  auth: { user },
+}) => {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  let currentPage = Number(searchParams.get("page"));
-  const [totalPages, setPages] = useState(0);
   useEffect(() => {
-    document.title = "LearnX - All Bootcamps";
-    getBootcamps(currentPage);
-  }, [getBootcamps, currentPage]);
+    getBootcamps();
+  }, [getBootcamps]);
+
+  const [myBootcamps, setMyBootcamps] = useState([]);
   useEffect(() => {
     if (bootcamps !== null && !loading) {
-      setPages(Math.ceil(bootcamps?.total / 4));
+      setMyBootcamps(
+        bootcamps?.data?.filter((bootcamp) => bootcamp.user === user.data._id)
+      );
     }
-  }, [bootcamps, loading]);
+  }, [bootcamps, loading, user]);
+
   const handleClick = (e) => {
     const { id } = e.target;
     return navigate(`/bootcamp/${id}`);
-  };
-
-  const handlePagination = (e, v) => {
-    setSearchParams({ page: v });
   };
   return bootcamps === null && loading ? (
     <div className="loading">
@@ -36,20 +34,7 @@ const ResourceLayout = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
     </div>
   ) : (
     <div className="section">
-      <Pagination
-        count={totalPages}
-        variant="outlined"
-        shape="rounded"
-        sx={{
-          "& .css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected":
-            {
-              backgroundColor: "rgba(255, 255, 255, 0.08)",
-            },
-        }}
-        page={currentPage}
-        onChange={handlePagination}
-      />
-      {bootcamps.data?.map((bootcamp) => {
+      {myBootcamps?.map((bootcamp) => {
         return (
           <div
             key={bootcamp.id}
@@ -96,31 +81,23 @@ const ResourceLayout = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
           </div>
         );
       })}
-      <Pagination
-        count={totalPages}
-        variant="outlined"
-        shape="rounded"
-        sx={{
-          "& .css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected":
-            {
-              backgroundColor: "rgba(255, 255, 255, 0.08)",
-            },
-        }}
-        page={currentPage}
-        onChange={handlePagination}
-      />
-      <p className="comment">Note: If no courses are included in the bootcamp, the bootcamp will be removed from the list.</p>
+      <p className="comment">
+        Note: If no courses are included in the bootcamp, the bootcamp will be
+        removed from the list.
+      </p>
     </div>
   );
 };
 
-ResourceLayout.propTypes = {
+MyBootcamps.propTypes = {
   getBootcamps: PropTypes.func.isRequired,
   bootcamp: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   bootcamp: state.bootcamp,
+  auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getBootcamps })(ResourceLayout);
+export default connect(mapStateToProps, { getBootcamps })(MyBootcamps);

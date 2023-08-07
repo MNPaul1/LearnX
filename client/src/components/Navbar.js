@@ -97,7 +97,7 @@ function ResponsiveAppBar({ auth: { isAuthenticated, user }, logout }) {
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography
                   textAlign="center"
-                  onClick={() => navigate("/bootcamps")}
+                  onClick={() => navigate(`/bootcamps?page=${1}`)}
                 >
                   ALL BOOTCAMPS
                 </Typography>
@@ -105,7 +105,7 @@ function ResponsiveAppBar({ auth: { isAuthenticated, user }, logout }) {
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography
                   textAlign="center"
-                  onClick={() => navigate("/courses")}
+                  onClick={() => navigate(`/courses?page=${1}`)}
                 >
                   ALL COURSES
                 </Typography>
@@ -149,13 +149,13 @@ function ResponsiveAppBar({ auth: { isAuthenticated, user }, logout }) {
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              <div onClick={() => navigate("/bootcamps")}>ALL BOOTCAMPS</div>
+              <div onClick={() => navigate(`/bootcamps?page=${1}`)}>ALL BOOTCAMPS</div>
             </Button>
             <Button
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              <div onClick={() => navigate("/courses")}>ALL COURSES</div>
+              <div onClick={() => navigate(`/courses?page=${1}`)}>ALL COURSES</div>
             </Button>
             <Button
               onClick={handleCloseNavMenu}
@@ -215,6 +215,11 @@ function ResponsiveAppBar({ auth: { isAuthenticated, user }, logout }) {
                   {user?.data?.role === "admin" && (
                     <Typography onClick={() => navigate(`/users-settings`)}>
                       Users Settings
+                    </Typography>
+                  )}
+                  {user?.data?.role in {"admin":true, "publisher":true} && (
+                    <Typography onClick={() => navigate(`/my-bootcamps`)}>
+                      My Bootcamps
                     </Typography>
                   )}
                   <Typography onClick={logout}>Logout</Typography>

@@ -304,9 +304,9 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
             Yes
           </label>
         </span>
-        <h4 className="instruction">
+        <p className="comment">
           Please upload bootcamp photo in settings.
-        </h4>
+        </p>
         <Button className="btn" type="submit" variant="contained">
           Add Bootcamp
         </Button>

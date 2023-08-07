@@ -24,6 +24,7 @@ import UpdateReview from "./components/reviews/UpdateReview";
 import ProfileLayout from "./components/Profile/ProfileLayout";
 import UserSettings from "./components/Profile/UserSettings";
 import UsersSettings from "./components/Profile/UsersSettings";
+import MyBootcamps from "./components/bootcampLayout/MyBootcamps";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -83,6 +84,10 @@ const App = () => {
           <Route
             path="/users-settings"
             element={<PrivateRoute component={UsersSettings} />}
+          />
+          <Route
+            path="/my-bootcamps"
+            element={<PrivateRoute component={MyBootcamps} />}
           />
         </Routes>
         <Footer />

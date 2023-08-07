@@ -4,11 +4,11 @@ import axios from "axios";
 
 
 //Get All courses
-export const getCourses = () => async dispatch => {
+export const getCourses = (page) => async dispatch => {
   dispatch({ type: CLEAR_COURSE });
 
     try {
-        const res = await axios.get('/api/v1/courses')
+        const res = await axios.get(`/api/v1/courses?limit=4&page=${page}`)
         dispatch({
             type: GET_COURSES,
             payload: res.data
@@ -99,7 +99,7 @@ export const addCourse = (id, formData) => async (dispatch) =>{
 //Update Course
 export const updateCourse = (id, formData) => async (dispatch) =>{
     try{
-        const res = axios.put(`/api/v1/courses/${id}`, formData)
+        const res = await axios.put(`/api/v1/courses/${id}`, formData)
         dispatch({
             type: COURSE_UPDATED,
             payload: res.data
