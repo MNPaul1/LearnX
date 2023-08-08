@@ -130,6 +130,9 @@
   .bootcamp-section-header {
     flex-direction: column;
   }
+  .bootcamp-section{
+    width: 85%;
+  }
   .course-container {
     min-width: 100%;
     max-width: 100%;

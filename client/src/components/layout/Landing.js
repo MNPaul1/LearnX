@@ -1,14 +1,14 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./landing.css";
 import CardMedia from "@mui/material/CardMedia";
 import { connect } from "react-redux";
 import { getBootcamps } from "../../actions/bootcamp";
 import PropTypes from "prop-types";
-import { Rating, Box } from "@mui/material";
+import { Rating, Box, TextField, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getUsers } from "../../actions/user";
 import LoadingLayout from "./loadingLayout";
-import '../../utils/design.css'
+import "../../utils/design.css";
 
 const Landing = ({
   getBootcamps,
@@ -52,6 +52,23 @@ const Landing = ({
     const { id } = e.target;
     return navigate(`/bootcamp/${id}`);
   };
+  const [formData, setFormData] = useState({
+    name: '',
+    email:'',
+    message:''
+  })
+  const {name, email, message} = formData
+
+  const onChange = (e) => {
+    let { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    setFormData({name: '', email:'', message:''})
+  };
+
   return loading ? (
     <div className="loading">
       <LoadingLayout />
@@ -59,15 +76,25 @@ const Landing = ({
   ) : (
     <Fragment>
       <div className="header">
-      <img src="/logo_transparent.png" alt="" className='landing_img' width={200} />
+        <img
+          src="/logo_transparent.png"
+          alt=""
+          className="landing_img"
+          width={200}
+        />
         <h1>LearnX</h1>
         <p>
           Unlock Your Learning Potential : Redefine Your Skills and Fuel Success
           with Dynamic Bootcamps!
         </p>
       </div>
-      <h1 className="label" id="heading-underline">Explore Top Bootcamps</h1>
-      <div className="bootcamps-container box center-element" id="red-blue-yellow-bg">
+      <h1 className="label" id="heading-underline">
+        Explore Top Bootcamps
+      </h1>
+      <div
+        className="bootcamps-container box center-element"
+        id="red-blue-yellow-bg"
+      >
         {bootcamps.data?.map(
           (bootcamp, key) =>
             key < 4 && (
@@ -88,19 +115,21 @@ const Landing = ({
                   <nav className="cost-rating-conatiner center-element">
                     <span>CA${bootcamp.averageCost}</span>
                     <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  {parseFloat(((bootcamp.averageRating * 5) / 10).toFixed(2))}
-                    <Rating
-                      name="half-rating-read"
-                      defaultValue={(bootcamp.averageRating * 5) / 10}
-                      precision={0.5}
-                      size="small"
-                      readOnly
-                    />
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      {parseFloat(
+                        ((bootcamp.averageRating * 5) / 10).toFixed(2)
+                      )}
+                      <Rating
+                        name="half-rating-read"
+                        defaultValue={(bootcamp.averageRating * 5) / 10}
+                        precision={0.5}
+                        size="small"
+                        readOnly
+                      />
                     </Box>
                   </nav>
                 </div>
@@ -108,11 +137,10 @@ const Landing = ({
             )
         )}
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <h1 className="label" id="heading-underline">Benefits of Bootcamps</h1>
+
+      <h1 className="label" id="heading-underline">
+        Benefits of Bootcamps
+      </h1>
       <div className="box benefits-container" id="purple-green-bg">
         {bootcampsBenefits.map((item, key) => (
           <div key={key} className="item">
@@ -121,6 +149,46 @@ const Landing = ({
             <p>{Object.values(item)}</p>
           </div>
         ))}
+      </div>
+        <h1 className="label" id="heading-underline">contact us</h1>
+      <div className="container box" id="contact-us">
+        <form onSubmit={handleSubmit}>
+          <TextField
+            type="name"
+            name="name"
+            id="filled-basic"
+            label="Name"
+            variant="filled"
+            value={name}
+            onChange={onChange}
+            required
+          />
+          <TextField
+            type="email"
+            name="email"
+            id="filled-basic"
+            label="Email"
+            variant="filled"
+            value={email}
+            onChange={onChange}
+            required
+          />
+          <TextField
+            id="filled-multiline-static"
+            label="Message"
+            type="text"
+            name="message"
+            multiline
+            rows={4}
+            variant="filled"
+            value={message}
+            onChange={onChange}
+            required
+          />
+          <Button className="btn" type="submit" variant="contained">
+            SUBMIT
+          </Button>
+        </form>
       </div>
     </Fragment>
   );

@@ -98,6 +98,7 @@
 .label {
   text-decoration: none;
   margin: 2% 2.5vw 0% 2.5vw;
+  margin-top: 25px;
 }
 
 .bootcamps-container {
@@ -193,7 +194,18 @@
   line-height: 30px;
   font-size: inherit;
 }
-
+#contact-us{
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+}
+#contact-us form {
+  width: 50%;
+}
+#contact-us form button{
+  background-color: var(--container-bg-color);
+  height: 50px;
+}
 .credit {
   background-color: var(--container-bg-color);
   color: var(--color);
@@ -209,6 +221,9 @@
   .header{
     height: 100vh;
     font-size: 1.9rem;
+  }
+  #contact-us form {
+    width: 100%;
   }
   .label {
     font-size: large;

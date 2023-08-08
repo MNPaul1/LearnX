@@ -42,7 +42,7 @@ function CourseLayout({
     </div>
   ) : (
     <div className="outer-container">
-      <div className="container" style={{ width: "75%", position: "relative" }}>
+      <div className="container courses">
         <h1 className="bootcamp-title">
           {current_course.data.title}
           <button

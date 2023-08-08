@@ -47,12 +47,18 @@
     background-color: rgb(242, 69, 69);
 }
 
-
+.courses{
+    width: 75%;
+    position: relative;
+}
 @media screen and (max-width: 600px) {
     .createbootcamp-container{
         width: 90%;
     }
     .container{
       min-width: 0;
+    }
+    .courses{
+        width: 85%;
     }
   }
