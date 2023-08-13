@@ -21,7 +21,7 @@ export const UsersSettings = ({ getUsers, user: { users, loading } }) => {
       <LoadingLayout />
     </div>
   ) : (
-    <div className="bootcamp-settings">
+    <div className="resource-settings">
     <div className="sidebar">
       <Button className="btn" variant="outlined" onClick={() => setContent("editUser")}>
         Edit User

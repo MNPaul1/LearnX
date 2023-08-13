@@ -8,12 +8,14 @@ import { Rating, Box, TextField, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getUsers } from "../../actions/user";
 import LoadingLayout from "./loadingLayout";
+import { sendMail } from "../../actions/mail";
 import "../../utils/design.css";
 
 const Landing = ({
   getBootcamps,
   bootcamp: { bootcamps, loading },
   getUsers,
+  sendMail,
 }) => {
   useEffect(() => {
     document.title = "LearnX - Home";
@@ -53,11 +55,11 @@ const Landing = ({
     return navigate(`/bootcamp/${id}`);
   };
   const [formData, setFormData] = useState({
-    name: '',
-    email:'',
-    message:''
-  })
-  const {name, email, message} = formData
+    name: "",
+    email: "",
+    message: "",
+  });
+  const { name, email, message } = formData;
 
   const onChange = (e) => {
     let { name, value } = e.target;
@@ -66,7 +68,8 @@ const Landing = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    setFormData({name: '', email:'', message:''})
+    setFormData({ name: "", email: "", message: "" });
+    sendMail(formData)
   };
 
   return loading ? (
@@ -150,9 +153,15 @@ const Landing = ({
           </div>
         ))}
       </div>
-        <h1 className="label" id="heading-underline">contact us</h1>
+      <h1 className="label" id="heading-underline">
+        contact us
+      </h1>
       <div className="container box" id="contact-us">
         <form onSubmit={handleSubmit}>
+          <p id="heading">
+            Bridge the Gap: Connect with Us Effortlessly through Our Contact
+            Page
+          </p>
           <TextField
             type="name"
             name="name"
@@ -173,6 +182,7 @@ const Landing = ({
             onChange={onChange}
             required
           />
+          
           <TextField
             id="filled-multiline-static"
             label="Message"
@@ -198,6 +208,7 @@ Landing.propTypes = {
   getBootcamps: PropTypes.func.isRequired,
   bootcamp: PropTypes.object.isRequired,
   getUsers: PropTypes.func.isRequired,
+  sendMail: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -205,4 +216,4 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps, { getBootcamps, getUsers })(Landing);
+export default connect(mapStateToProps, { getBootcamps, getUsers, sendMail })(Landing);

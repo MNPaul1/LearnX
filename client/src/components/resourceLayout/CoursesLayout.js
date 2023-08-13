@@ -13,29 +13,28 @@ const CoursesLayout = ({ getCourses, auth, course: { courses, loading } }) => {
   const [totalPages, setPages] = useState(0);
   const skillLevels = { beginner: "20", intermediate: "50", advanced: "70" };
   const handleClick = (e) => {
-    const {id} = e.target
-    return navigate(`/course/${id}`)
-  }
+    const { id } = e.target;
+    return navigate(`/course/${id}`);
+  };
   useEffect(() => {
-    document.title = "LearnX - All Courses"
+    document.title = "LearnX - All Courses";
     getCourses(currentPage);
-    
   }, [getCourses, currentPage]);
   useEffect(() => {
     if (courses !== null && !loading) {
-      setPages(Math.ceil(courses?.total / 4));
+      setPages(Math.ceil(Number(courses?.total) / 4));
     }
   }, [courses, loading]);
   const handlePagination = (e, v) => {
     setSearchParams({ page: v });
   };
-  return courses===null && loading? (
+  return courses === null && loading ? (
     <div className="loading">
       <LoadingLayout />
     </div>
   ) : (
     <div className="section">
-          <Pagination
+      <Pagination
         count={totalPages}
         variant="outlined"
         shape="rounded"
@@ -56,21 +55,26 @@ const CoursesLayout = ({ getCourses, auth, course: { courses, loading } }) => {
           onClick={handleClick}
         >
           <div className="click" id={course._id}></div>
-          <h1 className="bootcamp-name">Associated with {course.bootcamp.name} bootcamp</h1>
+          <h1 className="bootcamp-name">
+            Associated with {course.bootcamp.name} bootcamp
+          </h1>
           <div className="resource-info">
             <h2 className="resource-title">{course.title}</h2>
-            <p className="description">{course.description.slice(0,120)}{course.description.length>120?'...':'.'}</p>
+            <p className="description">
+              {course.description.slice(0, 120)}
+              {course.description.length > 120 ? "..." : "."}
+            </p>
             <nav>
-                <b>Minimum Skill:</b>
-              </nav>
-              <div className="skill-bar">
-                <div
-                  className="required-skill-bar"
-                  style={{ width: `${skillLevels[course.minimumSkill]}%` }}
-                >
-                  {">" + skillLevels[course.minimumSkill]}%
-                </div>
+              <b>Minimum Skill:</b>
+            </nav>
+            <div className="skill-bar">
+              <div
+                className="required-skill-bar"
+                style={{ width: `${skillLevels[course.minimumSkill]}%` }}
+              >
+                {">" + skillLevels[course.minimumSkill]}%
               </div>
+            </div>
             <h3 className="resource-cost">CA${course.tuition}</h3>
           </div>
         </div>

@@ -1,10 +1,28 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useMatch } from "react-router-dom";
 import { addCourse } from "../../actions/course";
 import { TextField, Button } from "@mui/material";
-export const AddCourse = ({ addCourse }) => {
+import LoadingLayout from "../layout/loadingLayout";
+import { getCourseById, updateCourse } from "../../actions/course";
+export const AddCourse = ({
+  addCourse,
+  getCourseById,
+  course: { current_course },
+  updateCourse,
+}) => {
+  const isAddCourse = useMatch("/bootcamp-settings/:id");
+  const { id } = useParams();
+  const navigate = useNavigate();
+  document.title = `LearnX - ${isAddCourse?"Add Course":"Update Course"}`;
+  useEffect(() => {
+    if (!isAddCourse) {
+      
+      getCourseById(id);
+    }
+  }, [getCourseById, id, isAddCourse]);
+
   const [formData, setData] = useState({
     title: "",
     description: "",
@@ -13,6 +31,13 @@ export const AddCourse = ({ addCourse }) => {
     minimumSkill: "",
     ScholershipAvailable: "",
   });
+  useEffect(() => {
+    if (!isAddCourse) {
+      if (current_course) {
+        setData(current_course.data);
+      }
+    }
+  }, [current_course, isAddCourse]);
   const {
     title,
     description,
@@ -21,15 +46,17 @@ export const AddCourse = ({ addCourse }) => {
     minimumSkill,
     ScholershipAvailable,
   } = formData;
-  const { id } = useParams();
-  const navigate = useNavigate();
-  document.title = "LearnX - Add Course"
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    addCourse(id, formData);
-    navigate(`/bootcamp/${id}`);
+    if (isAddCourse) {
+      addCourse(id, formData);
+      navigate(`/bootcamp/${id}`);
+    } else {
+      updateCourse(id, formData);
+      navigate(`/course/${id}`);
+    }
   };
 
   const onChange = (e) => {
@@ -39,16 +66,24 @@ export const AddCourse = ({ addCourse }) => {
     } else if (value === "false") {
       value = false;
     }
-    if (name ==="weeks" || name==="tuition"){
-        value=parseFloat(value)
+    if (name === "weeks" || name === "tuition") {
+      value = parseFloat(value);
     }
     setData({ ...formData, [name]: value });
   };
 
-  return (
+  return current_course === null && !isAddCourse ? (
+    <div className="loading">
+      <LoadingLayout />
+    </div>
+  ) : (
     <div className="outer-container">
-      <form className="container" onSubmit={handleSubmit} style={{alignItems: "flex-start"}}>
-        <h1 id="heading">ADD COURSE</h1>
+      <form
+        className="container"
+        onSubmit={handleSubmit}
+        style={{ alignItems: "flex-start" }}
+      >
+        <h1 id="heading">{isAddCourse ? "ADD COURSE" : "UPDATE COURSE"}</h1>
         <TextField
           type="name"
           name="title"
@@ -66,7 +101,7 @@ export const AddCourse = ({ addCourse }) => {
           multiline
           rows={4}
           value={description}
-          variant="standard"
+          variant="filled"
           onChange={onChange}
           required
         />
@@ -82,7 +117,7 @@ export const AddCourse = ({ addCourse }) => {
           required
         />
         <TextField
-        type="number"
+          type="number"
           name="tuition"
           id="filled-basic"
           label="Tuition"
@@ -153,7 +188,7 @@ export const AddCourse = ({ addCourse }) => {
           </label>
         </span>
         <Button className="btn" type="submit" variant="contained">
-          Add Course
+          {isAddCourse ? "Add Course" : "Update"}
         </Button>
       </form>
     </div>
@@ -162,8 +197,17 @@ export const AddCourse = ({ addCourse }) => {
 
 AddCourse.propTypes = {
   addCourse: PropTypes.func.isRequired,
+  getCourseById: PropTypes.func.isRequired,
+  course: PropTypes.object.isRequired,
+  updateCourse: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  course: state.course,
+});
 
-export default connect(mapStateToProps, { addCourse })(AddCourse);
+export default connect(mapStateToProps, {
+  addCourse,
+  getCourseById,
+  updateCourse,
+})(AddCourse);

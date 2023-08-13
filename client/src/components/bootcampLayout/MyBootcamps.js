@@ -70,7 +70,7 @@ export const MyBootcamps = ({
                 {parseFloat(((bootcamp.averageRating * 5) / 10).toFixed(2))}
                 <Rating
                   name="half-rating-read"
-                  defaultValue={(bootcamp.averageRating * 5) / 10}
+                  value={(bootcamp.averageRating * 5) / 10}
                   precision={0.5}
                   size="small"
                   readOnly

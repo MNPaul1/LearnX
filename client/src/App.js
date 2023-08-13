@@ -17,14 +17,13 @@ import { Footer } from "./components/layout/Footer";
 import CreateBootcamp from "./components/bootcampLayout/CreateBootcamp";
 import CoursesLayout from "./components/resourceLayout/CoursesLayout";
 import CourseLayout from "./components/courseLayout/CourseLayout";
-import BootcampSettings from "./components/bootcampLayout/BootcampSettings";
-import CourseSettings from "./components/courseLayout/CourseSettings";
 import AllReviews from "./components/reviews/AllReviews";
 import UpdateReview from "./components/reviews/UpdateReview";
 import ProfileLayout from "./components/Profile/ProfileLayout";
 import UserSettings from "./components/Profile/UserSettings";
 import UsersSettings from "./components/Profile/UsersSettings";
 import MyBootcamps from "./components/bootcampLayout/MyBootcamps";
+import ResourceSettings from "./components/layout/ResourceSettings";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -59,11 +58,11 @@ const App = () => {
           />
           <Route
             path="bootcamp-settings/:id"
-            element={<PrivateRoute component={BootcampSettings} />}
+            element={<PrivateRoute component={ResourceSettings} />}
           />
           <Route
             path="/course-settings/:id"
-            element={<PrivateRoute component={CourseSettings} />}
+            element={<PrivateRoute component={ResourceSettings} />}
           />
           <Route
             path="/reviews"

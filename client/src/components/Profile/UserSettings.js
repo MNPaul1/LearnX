@@ -8,7 +8,7 @@ function UserSettings({auth:{user}}) {
   document.title = "LearnX - Update User";
   const [currentContent, setContent] = useState("updateUser");
   return (
-    <div className="bootcamp-settings">
+    <div className="resource-settings">
       <div className="sidebar">
         <Button className="btn" variant="outlined" onClick={() => setContent("updateUser")}>Update User</Button>
         {user?.data.role==='admin'&&<Button className="btn" variant="outlined" onClick={() => setContent("deleteUser")}>Delete User</Button>}

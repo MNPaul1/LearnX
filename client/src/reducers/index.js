@@ -5,11 +5,13 @@ import bootcamp from "./bootcamp";
 import course from "./course";
 import review from "./review";
 import user from "./user";
+import mail from "./mail"
 export default combineReducers({
     alert, 
     auth,
     bootcamp,
     course,
     review,
-    user
+    user,
+    mail
 })

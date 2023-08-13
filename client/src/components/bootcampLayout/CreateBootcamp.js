@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./createBootcamp.css";
 import { Checkbox, FormControlLabel } from "@mui/material";
@@ -7,11 +7,26 @@ import { connect } from "react-redux";
 import { Button } from "@mui/material";
 import { createBootcamp } from "../../actions/bootcamp";
 import { TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
-  document.title = "LearnX - Create Bootcamp"
-
-  const navigate = useNavigate()
+import { useMatch, useNavigate, useParams } from "react-router-dom";
+import { getBootcampById, updateBootcamp } from "../../actions/bootcamp";
+const CreateBootcamp = ({
+  auth: { user },
+  createBootcamp,
+  getBootcampById,
+  updateBootcamp,
+  bootcamp: { bootcamp },
+}) => {
+  const isCreateBootcamp = useMatch("/add-bootcamp");
+  document.title = `LearnX - ${
+    isCreateBootcamp ? "Add Bootcamp" : "Update Bootcamp"
+  }`;
+  const { id } = useParams();
+  useEffect(() => {
+    if (id) {
+      getBootcampById(id);
+    }
+  }, [getBootcampById, id]);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -38,6 +53,13 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
     jobGuarantee,
     acceptGi,
   } = formData;
+  useEffect(() => {
+    if (!isCreateBootcamp) {
+      if (bootcamp !== null) {
+        setFormData(bootcamp.data);
+      }
+    }
+  }, [bootcamp, isCreateBootcamp]);
   const careersList = [
     "Web Development",
     "UI/UX",
@@ -73,11 +95,16 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    createBootcamp(formData);
-    navigate('/bootcamps')
+    if (isCreateBootcamp) {
+      createBootcamp(formData);
+      navigate("/bootcamps");
+    } else {
+      updateBootcamp(bootcamp.data._id, formData);
+      navigate(`/bootcamp/${id}`);
+    }
   };
 
-  return user == null ? (
+  return user == null && !isCreateBootcamp ? (
     <LoadingLayout />
   ) : (
     <div className="outer-container">
@@ -85,7 +112,7 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
         className="container createbootcamp-container"
         onSubmit={handleSubmit}
       >
-        <h1 id="heading">ADD BOOTCAMP</h1>
+        <h1 id="heading">{isCreateBootcamp ? "ADD BOOTCAMP" : "UPDATE BOOTCAMP"}</h1>
         <TextField
           type="name"
           name="name"
@@ -103,7 +130,7 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
           multiline
           rows={4}
           value={description}
-          variant="standard"
+          variant="filled"
           onChange={onChange}
           required
         />
@@ -137,7 +164,7 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
           onChange={onChange}
           required
         />
-        <TextField
+        {isCreateBootcamp && <TextField
           type="address"
           name="address"
           id="filled-basic"
@@ -146,10 +173,10 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
           value={address}
           onChange={onChange}
           required
-        />
+        />}
         <span className="radio-span check-box">
           <h3>Careers</h3>
-          <div>
+          <span>
             <FormControlLabel
               control={<Checkbox />}
               label="Web Development"
@@ -157,8 +184,8 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
               checked={careers.includes("Web Development")}
               onChange={onChange}
             />
-          </div>
-          <div>
+          </span>
+          <span>
             <FormControlLabel
               control={<Checkbox />}
               name="Mobile Development"
@@ -166,8 +193,8 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
               checked={careers.includes("Mobile Development")}
               onChange={onChange}
             />
-          </div>
-          <div>
+          </span>
+          <span>
             <FormControlLabel
               control={<Checkbox />}
               name="UI/UX"
@@ -175,8 +202,8 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
               checked={careers.includes("UI/UX")}
               onChange={onChange}
             />
-          </div>
-          <div>
+          </span>
+          <span>
             <FormControlLabel
               control={<Checkbox />}
               name="Data Science"
@@ -184,8 +211,8 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
               checked={careers.includes("Data Science")}
               onChange={onChange}
             />
-          </div>
-          <div>
+          </span>
+          <span>
             <FormControlLabel
               control={<Checkbox />}
               name="Business"
@@ -193,8 +220,8 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
               checked={careers.includes("Business")}
               onChange={onChange}
             />
-          </div>
-          <div>
+          </span>
+          <span>
             <FormControlLabel
               control={<Checkbox />}
               name="Other"
@@ -202,7 +229,7 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
               checked={careers.includes("Other")}
               onChange={onChange}
             />
-          </div>
+          </span>
         </span>
         <span className="radio-span">
           <h3>Housing</h3>
@@ -304,11 +331,9 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
             Yes
           </label>
         </span>
-        <p className="comment">
-          Please upload bootcamp photo in settings.
-        </p>
+        <p className="comment">Please upload bootcamp photo in settings.</p>
         <Button className="btn" type="submit" variant="contained">
-          Add Bootcamp
+          {isCreateBootcamp ? "Add Bootcamp" : "Update Bootcamp"}
         </Button>
       </form>
     </div>
@@ -318,10 +343,18 @@ const CreateBootcamp = ({ auth: { user }, createBootcamp }) => {
 CreateBootcamp.propTypes = {
   createBootcamp: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  bootcamp: PropTypes.object.isRequired,
+  getBootcampById: PropTypes.func.isRequired,
+  updateBootcamp: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  bootcamp: state.bootcamp,
 });
 
-export default connect(mapStateToProps, { createBootcamp })(CreateBootcamp);
+export default connect(mapStateToProps, {
+  createBootcamp,
+  getBootcampById,
+  updateBootcamp,
+})(CreateBootcamp);

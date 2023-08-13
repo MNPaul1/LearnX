@@ -64,7 +64,6 @@
   transform: translate(-50%, -50%);
 }
 
-
 .landing_img {
   --border-size: 3px;
   --border-angle: 0turn;
@@ -163,7 +162,7 @@
   width: 45%;
   box-sizing: border-box;
 }
-.item:hover{
+.bootcamp:hover {
   transform: scale(1.02);
 }
 
@@ -179,22 +178,13 @@
   box-sizing: border-box;
   padding: 20px;
 }
-#footer h1{
-  background-image: radial-gradient(
-    50% 50% at 50% 50%,
-    rgb(255, 148, 41) 20%,
-    rgb(28, 85, 232) 80%
-  );
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
 .about {
   width: 30%;
   line-height: 30px;
   font-size: inherit;
 }
-#contact-us{
+#contact-us {
   background-color: transparent;
   border: 0;
   box-shadow: none;
@@ -202,7 +192,7 @@
 #contact-us form {
   width: 50%;
 }
-#contact-us form button{
+#contact-us form button {
   background-color: var(--container-bg-color);
   height: 50px;
 }
@@ -210,15 +200,22 @@
   background-color: var(--container-bg-color);
   color: var(--color);
   padding: 10px;
+  height: fit-content;
+  column-gap: 8px;
   width: 100vw;
   box-sizing: border-box;
   text-align: center;
+}
+.credit a {
+  text-decoration: none;
+  color: var(--color);
+  padding-top: 5px;
 }
 @media screen and (max-width: 550px) {
   .box {
     height: fit-content;
   }
-  .header{
+  .header {
     height: 100vh;
     font-size: 1.9rem;
   }
@@ -242,7 +239,7 @@
     width: 49%;
     font-size: small;
   }
-  .item h2{
+  .item h2 {
     font-size: small;
   }
   #footer {

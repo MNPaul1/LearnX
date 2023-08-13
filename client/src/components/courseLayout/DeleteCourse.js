@@ -36,7 +36,8 @@ const handleSubmit = (e) =>{
           }}
         />
         <TextField
-          id="filled-read-only-input"
+          id="filled-multiline-static"
+          multiline
           label="Description"
           variant="filled"
           defaultValue={current_course.data.description}

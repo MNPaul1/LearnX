@@ -1,5 +1,6 @@
 import React from "react";
-
+import LaunchIcon from '@mui/icons-material/Launch';
+import { Link } from "react-router-dom";
 export const Footer = () => {
   return (
     <>
@@ -23,7 +24,12 @@ export const Footer = () => {
           </nav>
         </nav>
       </footer>
-      <p className="credit">Design By - Mahan</p>
+      <div className="credit center-element">
+        <p>Design By - Mahanandan</p>
+        <Link target="_blank" to="https://mahan2001.netlify.app">
+        <LaunchIcon fontSize="small" />
+        </Link>
+      </div>
     </>
   );
 };

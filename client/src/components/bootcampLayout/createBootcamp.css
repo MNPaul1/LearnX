@@ -1,6 +1,5 @@
 .createbootcamp-container{
     width: 50%;
-    font-size: 1.8vmin;
     align-items: flex-start;
 }
 .createbootcamp-container *{
@@ -22,9 +21,12 @@
     align-items: center;
     min-width: 0;
 }
-.radio-span *{
+.radio-span{
     min-width: 0;
     width: fit-content;
+}
+input[type="radio"]{
+    margin-right: 5px;
 }
 .check-box{
     flex-wrap: wrap;
@@ -54,6 +56,7 @@
 @media screen and (max-width: 600px) {
     .createbootcamp-container{
         width: 90%;
+        font-size: small;
     }
     .container{
       min-width: 0;

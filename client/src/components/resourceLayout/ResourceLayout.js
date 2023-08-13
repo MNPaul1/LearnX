@@ -19,7 +19,7 @@ const ResourceLayout = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
   }, [getBootcamps, currentPage]);
   useEffect(() => {
     if (bootcamps !== null && !loading) {
-      setPages(Math.ceil(bootcamps?.total / 4));
+      setPages(Math.ceil(Number(bootcamps?.total) / 4));
     }
   }, [bootcamps, loading]);
   const handleClick = (e) => {
@@ -85,7 +85,7 @@ const ResourceLayout = ({ getBootcamps, bootcamp: { bootcamps, loading } }) => {
                 {parseFloat(((bootcamp.averageRating * 5) / 10).toFixed(2))}
                 <Rating
                   name="half-rating-read"
-                  defaultValue={(bootcamp.averageRating * 5) / 10}
+                  value={(bootcamp.averageRating * 5) / 10}
                   precision={0.5}
                   size="small"
                   readOnly
