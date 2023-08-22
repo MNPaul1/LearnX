@@ -125,7 +125,7 @@
   max-width: 350px;
   width: max-content;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 770px) {
   .bootcamp-section-header {
     flex-direction: column;
   }
@@ -152,16 +152,16 @@
     position: relative;
   }
 }
-@media screen and (min-width: 600px) and (max-width: 920px) {
+@media screen and (min-width: 660px) and (max-width: 1000px) {
   .resource-container {
-    width: 80%;
+    width: 85%;
   }
   .course-container {
     min-width: 49%;
     max-width: 50%;
   }
   .course-container h1 {
-    font-size: medium;
+    font-size: x-large;
   }
   .review-container {
     width: 60%;
