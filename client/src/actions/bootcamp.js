@@ -137,6 +137,7 @@ export const deleteBootcamp = (id) => async (dispatch) => {
 //Upload bootcamp Photo
 export const uploadPhoto = (id, photo) => async (dispatch) => {
   try {
+    
     const formData = new FormData()
     formData.append("file", photo)
     const res = await axios.put(`/api/v1/bootcamps/${id}/photo`, formData);
