@@ -118,12 +118,21 @@
 }
 .contained-container {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 25px;
+  right: 30px;
   color: var(--color);
   min-width: 0;
   max-width: 350px;
   width: max-content;
+  min-height: 330px;
+}
+.courses{
+  align-items: flex-start;
+  height: 75vh;
+  width: 20vw;
+}
+.courses *{
+  flex: 1;
 }
 @media screen and (max-width: 770px) {
   .bootcamp-section-header {
@@ -148,8 +157,20 @@
   .review-container {
     width: 100%;
   }
+  .courses{
+    height: max-content;
+    align-items: center;
+    text-align: center;
+  }
   .contained-container {
     position: relative;
+    width: 100%;
+    right: 0;
+    bottom: 0;
+  }
+  .contained-container{
+    min-height: unset;
+    max-height: fit-content !important;
   }
 }
 @media screen and (min-width: 660px) and (max-width: 1000px) {
@@ -166,4 +187,12 @@
   .review-container {
     width: 60%;
   }
+  .courses{
+    height: max-content;
+    min-height: 600px;
+  }
+  .contained-container{
+    min-height: unset;
+    max-height: fit-content !important;
+  } 
 }

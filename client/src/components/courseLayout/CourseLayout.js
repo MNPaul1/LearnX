@@ -52,6 +52,7 @@ function CourseLayout({
               border: "none",
               cursor: "pointer",
               width: "fit-content",
+              marginLeft: "5px"
             }}
             onClick={handleSettingClick}
           >
@@ -89,6 +90,7 @@ function CourseLayout({
           <p className="description" id="course-description">
             {current_course.data?.bootcamp?.description}
           </p>
+          <h4>Instructor: {getUsername(current_course.data.user)}</h4>
         </div>
       </div>
     </div>

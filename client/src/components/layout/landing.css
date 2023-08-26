@@ -102,7 +102,6 @@
 }
 .bootcamps-container .bootcamp {
   position: relative;
-  /* width: auto; */
   flex: 0 1 auto;
   width: 290px;
   flex-grow:1;
