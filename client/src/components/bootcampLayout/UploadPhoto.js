@@ -26,9 +26,15 @@ export const UploadPhoto = ({
     }
   }, [bootcamp]);
   const handleChange = (e) => {
-    const img_url = URL.createObjectURL(e.target.files[0])
-    setDP(img_url)
-    setPhoto(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file)
+      reader.onloadend = () => {
+        setDP(reader.result);
+      }
+      setPhoto(file);
+    }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
